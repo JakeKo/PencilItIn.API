@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PencilItIn", "PencilItIn\PencilItIn.csproj", "{5F22557A-B51A-40B1-9933-FABA8D0B5541}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PencilItIn", "PencilItIn\PencilItIn.csproj", "{5F22557A-B51A-40B1-9933-FABA8D0B5541}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PencilItIn.Test", "PencilItIn.Test\PencilItIn.Test.csproj", "{0EE9304A-6040-4E44-B548-BFD855DDABD6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5F22557A-B51A-40B1-9933-FABA8D0B5541}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F22557A-B51A-40B1-9933-FABA8D0B5541}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F22557A-B51A-40B1-9933-FABA8D0B5541}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EE9304A-6040-4E44-B548-BFD855DDABD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EE9304A-6040-4E44-B548-BFD855DDABD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EE9304A-6040-4E44-B548-BFD855DDABD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EE9304A-6040-4E44-B548-BFD855DDABD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
