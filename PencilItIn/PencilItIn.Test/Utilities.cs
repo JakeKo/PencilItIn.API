@@ -5,6 +5,8 @@ namespace PencilItIn.Test
 {
     public static class Utilities
     {
+        public static Host SeverusSnape = new Host("Severus Snape", "Professor - Defense Against the Dark Arts", "Hogwart's");
+
         public static void HostsAreEqual(Host h1, Host h2)
         {
             Assert.AreEqual(h1.Name, h2.Name, $"Expected host name ({h1.Name} does not equal actual host name {h2.Name})");

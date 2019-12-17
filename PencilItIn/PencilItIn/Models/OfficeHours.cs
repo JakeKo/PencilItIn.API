@@ -11,13 +11,7 @@ namespace PencilItIn.Models
         public Host Host { get; set; }
         public List<Booking> Bookings { get; set; }
 
-        public OfficeHours(DateTime startTime, DateTime endTime, string location, Host host, List<Booking> bookings)
-        {
-            this.StartTime = startTime;
-            this.EndTime = endTime;
-            this.Location = location;
-            this.Host = host;
-            this.Bookings = bookings;
-        }
+        public OfficeHours(DateTime startTime, DateTime endTime, string location, Host host, List<Booking> bookings) =>
+            (this.StartTime, this.EndTime, this.Location, this.Host, this.Bookings) = (startTime, endTime, location, host, bookings);
     }
 }

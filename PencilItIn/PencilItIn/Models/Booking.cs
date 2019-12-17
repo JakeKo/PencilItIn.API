@@ -8,11 +8,7 @@ namespace PencilItIn.Models
         public DateTime EndTime { get; set; }
         public string Name { get; set; }
 
-        public Booking(DateTime startTime, DateTime endTime, string name)
-        {
-            this.StartTime = startTime;
-            this.EndTime = endTime;
-            this.Name = name;
-        }
+        public Booking(DateTime startTime, DateTime endTime, string name) =>
+            (this.StartTime, this.EndTime, this.Name) = (startTime, endTime, name);
     }
 }

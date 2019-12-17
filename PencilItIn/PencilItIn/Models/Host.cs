@@ -7,11 +7,7 @@ namespace PencilItIn.Models
         public string Title { get; set; }
         public string? OfficeLocation { get; set; }
 
-        public Host(string name, string title, string? officeLocation)
-        {
-            this.Name = name;
-            this.Title = title;
-            this.OfficeLocation = officeLocation;
-        }
+        public Host(string name, string title, string? officeLocation) =>
+            (this.Name, this.Title, this.OfficeLocation) = (name, title, officeLocation);
     }
 }
