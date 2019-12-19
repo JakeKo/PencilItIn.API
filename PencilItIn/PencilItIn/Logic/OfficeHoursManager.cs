@@ -1,5 +1,6 @@
 ﻿using PencilItIn.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PencilItIn.Logic
 {
@@ -23,16 +24,21 @@ namespace PencilItIn.Logic
 
         public static bool BookingOverlapsOtherBookings(Booking booking, IEnumerable<Booking> bookings)
         {
-            foreach (var presentBooking in bookings)
-            {
-                if ((booking.StartTime <= presentBooking.StartTime && presentBooking.StartTime <= booking.EndTime) ||
-                    (presentBooking.StartTime <= booking.StartTime && booking.StartTime <= presentBooking.EndTime))
-                {
-                    return true;
-                }
-            }
+            return bookings.Any(b => (booking.StartTime < b.StartTime && b.StartTime < booking.EndTime) ||
+                (b.StartTime < booking.StartTime && booking.StartTime < b.EndTime));
+        }
 
-            return false;
+        public static OfficeHours RemoveBookingFromOfficeHours(Booking booking, OfficeHours officeHours)
+        {
+            return new OfficeHours(
+                officeHours.StartTime,
+                officeHours.EndTime,
+                officeHours.Location,
+                officeHours.Host,
+                officeHours.Bookings
+                    .Where(b => b.Name != booking.Name || b.StartTime != booking.StartTime || b.EndTime != booking.EndTime)
+                    .ToList()
+            );
         }
     }
 }
