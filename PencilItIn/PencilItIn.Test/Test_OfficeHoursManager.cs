@@ -25,7 +25,7 @@ namespace PencilItIn.Test
                 new DateTime(2019, 1, 1, 0, 0, 0),
                 new DateTime(2019, 1, 1, 23, 59, 0),
                 "Hogwart's",
-                new Host("Severus Snape", "Professor - Defense Against the Dark Arts", "Hogwart's"),
+                Utilities.SeverusSnape,
                 new List<Booking>() { booking }
             );
 
@@ -325,6 +325,132 @@ namespace PencilItIn.Test
 
             // Assert
             Utilities.OfficeHoursAreEqual(expectedOfficeHours, actualOfficeHours);
+        }
+
+        [TestMethod]
+        public void CreateBookingValidator_RejectsTooShortBooking()
+        {
+            // Arrange
+            var validator = OfficeHoursManager.CreateBookingValidator(15, 60, true);
+            var booking = new Booking(new DateTime(2019, 1, 1, 10, 0, 0), new DateTime(2019, 1, 1, 10, 10, 0), "Hermoine Granger");
+            var officeHours = new OfficeHours(
+                 new DateTime(2019, 1, 1, 10, 0, 0),
+                 new DateTime(2019, 1, 1, 12, 0, 0),
+                 "Hogwart's",
+                 Utilities.SeverusSnape,
+                 new List<Booking>()
+             );
+
+            // Act
+            var bookingIsValid = validator(booking, officeHours);
+
+            // Assert
+            Assert.IsFalse(bookingIsValid);
+        }
+
+        [TestMethod]
+        public void CreateBookingValidator_RejectsTooLongBooking()
+        {
+            // Arrange
+            var validator = OfficeHoursManager.CreateBookingValidator(15, 60, true);
+            var booking = new Booking(new DateTime(2019, 1, 1, 10, 0, 0), new DateTime(2019, 1, 1, 11, 10, 0), "Hermoine Granger");
+            var officeHours = new OfficeHours(
+                 new DateTime(2019, 1, 1, 10, 0, 0),
+                 new DateTime(2019, 1, 1, 12, 0, 0),
+                 "Hogwart's",
+                 Utilities.SeverusSnape,
+                 new List<Booking>()
+             );
+
+            // Act
+            var bookingIsValid = validator(booking, officeHours);
+
+            // Assert
+            Assert.IsFalse(bookingIsValid);
+        }
+
+        [TestMethod]
+        public void CreateBookingValidator_AcceptsJustLongEnoughBooking()
+        {
+            // Arrange
+            var validator = OfficeHoursManager.CreateBookingValidator(15, 60, true);
+            var booking = new Booking(new DateTime(2019, 1, 1, 10, 0, 0), new DateTime(2019, 1, 1, 10, 15, 0), "Hermoine Granger");
+            var officeHours = new OfficeHours(
+                 new DateTime(2019, 1, 1, 10, 0, 0),
+                 new DateTime(2019, 1, 1, 12, 0, 0),
+                 "Hogwart's",
+                 Utilities.SeverusSnape,
+                 new List<Booking>()
+             );
+
+            // Act
+            var bookingIsValid = validator(booking, officeHours);
+
+            // Assert
+            Assert.IsTrue(bookingIsValid);
+        }
+
+        [TestMethod]
+        public void CreateBookingValidator_AcceptsJustShortEnoughBooking()
+        {
+            // Arrange
+            var validator = OfficeHoursManager.CreateBookingValidator(15, 60, true);
+            var booking = new Booking(new DateTime(2019, 1, 1, 10, 0, 0), new DateTime(2019, 1, 1, 11, 0, 0), "Hermoine Granger");
+            var officeHours = new OfficeHours(
+                 new DateTime(2019, 1, 1, 10, 0, 0),
+                 new DateTime(2019, 1, 1, 12, 0, 0),
+                 "Hogwart's",
+                 Utilities.SeverusSnape,
+                 new List<Booking>()
+             );
+
+            // Act
+            var bookingIsValid = validator(booking, officeHours);
+
+            // Assert
+            Assert.IsTrue(bookingIsValid);
+        }
+
+        [TestMethod]
+        public void CreateBookingValidator_AcceptsProperLengthBooking()
+        {
+            // Arrange
+            var validator = OfficeHoursManager.CreateBookingValidator(15, 60, true);
+            var booking = new Booking(new DateTime(2019, 1, 1, 10, 0, 0), new DateTime(2019, 1, 1, 10, 30, 0), "Hermoine Granger");
+            var officeHours = new OfficeHours(
+                 new DateTime(2019, 1, 1, 10, 0, 0),
+                 new DateTime(2019, 1, 1, 12, 0, 0),
+                 "Hogwart's",
+                 Utilities.SeverusSnape,
+                 new List<Booking>()
+             );
+
+            // Act
+            var bookingIsValid = validator(booking, officeHours);
+
+            // Assert
+            Assert.IsTrue(bookingIsValid);
+        }
+
+        [TestMethod]
+        public void CreateBookingValidator_RejectsDoubleBooking()
+        {
+            // Arrange
+            var validator = OfficeHoursManager.CreateBookingValidator(15, 60, false);
+            var booking = new Booking(new DateTime(2019, 1, 1, 10, 0, 0), new DateTime(2019, 1, 1, 10, 30, 0), "Hermoine Granger");
+            var officeHours = new OfficeHours(
+                 new DateTime(2019, 1, 1, 10, 0, 0),
+                 new DateTime(2019, 1, 1, 12, 0, 0),
+                 "Hogwart's",
+                 Utilities.SeverusSnape,
+                 new List<Booking>() { new Booking(new DateTime(2019, 1, 1, 11, 0, 0), new DateTime(2019, 1, 1, 11, 30, 0), "Hermoine Granger") }
+             );
+
+            // Act
+            var bookingIsValid = validator(booking, officeHours);
+
+            // Assert
+            Assert.IsFalse(bookingIsValid);
         }
     }
 }
