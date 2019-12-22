@@ -2,6 +2,13 @@
 {
     public enum EventCode
     {
-        CreateOfficeHours
+        CreateOfficeHours,
+        AddBooking,
+        CancelOfficeHours,
+        ChangeEndTime,
+        ChangeLocation,
+        ChangeStartTime,
+        ConfigureOfficeHours,
+        RemoveBooking
     }
 }
