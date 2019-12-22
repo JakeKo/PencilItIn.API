@@ -5,13 +5,13 @@ namespace PencilItIn.Models
 {
     public class OfficeHours
     {
+        public string Id { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public string Location { get; set; }
-        public Host Host { get; set; }
+        public string HostName { get; set; }
+        public string Title { get; set; }
+        public bool Cancelled { get; set; }
         public List<Booking> Bookings { get; set; }
-
-        public OfficeHours(DateTime startTime, DateTime endTime, string location, Host host, List<Booking> bookings) =>
-            (this.StartTime, this.EndTime, this.Location, this.Host, this.Bookings) = (startTime, endTime, location, host, bookings);
     }
 }
