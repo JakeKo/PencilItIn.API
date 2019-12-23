@@ -10,7 +10,7 @@ namespace PencilItIn.Test
     public class Test_StateAssembler
     {
         [TestMethod]
-        public void StateAssembler_CreatesSingleOfficeHours()
+        public void AssembleState_CreatesSingleOfficeHours()
         {
             // Arrange
             var expectedState = new SystemState()
@@ -50,7 +50,7 @@ namespace PencilItIn.Test
         }
 
         [TestMethod]
-        public void StateAssembler_CreatesMultipleOfficeHours()
+        public void AssembleState_CreatesMultipleOfficeHours()
         {
             // Arrange
             var expectedState = new SystemState()
@@ -110,7 +110,7 @@ namespace PencilItIn.Test
         }
 
         [TestMethod]
-        public void StateAssembler_CreatesSingleBooking()
+        public void AssembleState_CreatesSingleBooking()
         {
             // Arrange
             var expectedState = new SystemState()
@@ -168,7 +168,7 @@ namespace PencilItIn.Test
         }
 
         [TestMethod]
-        public void StateAssembler_CancelsOfficeHours()
+        public void AssembleState_CancelsOfficeHours()
         {
             // Arrange
             var expectedState = new SystemState()
@@ -212,7 +212,7 @@ namespace PencilItIn.Test
         }
 
         [TestMethod]
-        public void StateAssembler_CancelsSingleBooking()
+        public void AssembleState_CancelsSingleBooking()
         {
             // Arrange
             var expectedState = new SystemState()
@@ -275,7 +275,7 @@ namespace PencilItIn.Test
         }
 
         [TestMethod]
-        public void StateAssembler_ChangesStartTime()
+        public void AssembleState_ChangesStartTime()
         {
             // Arrange
             var expectedState = new SystemState()
@@ -320,7 +320,7 @@ namespace PencilItIn.Test
         }
 
         [TestMethod]
-        public void StateAssembler_ChangesEndTime()
+        public void AssembleState_ChangesEndTime()
         {
             // Arrange
             var expectedState = new SystemState()
@@ -365,7 +365,7 @@ namespace PencilItIn.Test
         }
 
         [TestMethod]
-        public void StateAssembler_ChangesLocation()
+        public void AssembleState_ChangesLocation()
         {
             // Arrange
             var expectedState = new SystemState()
@@ -404,6 +404,137 @@ namespace PencilItIn.Test
                 Location = "Great Hall"
             });
             var actualState = StateAssembler.AssembleState(eventLog);
+
+            // Assert
+            Utilities.StatesAreEqual(expectedState, actualState);
+        }
+
+        [TestMethod]
+        public void AssembleState_PerformsNoop()
+        {
+            // Arrange
+            var expectedState = new SystemState()
+            {
+                EventCount = 0,
+                OfficeHours = new List<OfficeHours>()
+            };
+
+            // Act
+            var eventLog = new EventLog();
+            var actualState = StateAssembler.AssembleState(eventLog);
+
+            // Assert
+            Utilities.StatesAreEqual(expectedState, actualState);
+        }
+
+        [TestMethod]
+        public void AssembleState_AcceptsSnapshotStatePerformsNoop()
+        {
+            // Arrange
+            var expectedState = new SystemState()
+            {
+                EventCount = 2,
+                OfficeHours = new List<OfficeHours>()
+                {
+                    new OfficeHours()
+                    {
+                        Cancelled = false,
+                        Bookings = new List<Booking>(),
+                        HostName = "Severus Snape",
+                        Title = "DADA Office Hours",
+                        StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                        EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                        Location = "HWT 204",
+                        Id = "0"
+                    }
+                }
+            };
+
+            // Act
+            var eventLog = new EventLog();
+            eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload()
+            {
+                HostName = "Severus Snape",
+                Title = "DADA Office Hours",
+                StartTime = new DateTime(2019, 1, 1, 8, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                Location = "HWT 204",
+                Id = "0"
+            });
+            eventLog.RecordEvent(EventCode.ChangeStartTime, new ChangeStartTimeEventPayload()
+            {
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                OfficeHoursId = "0"
+            });
+            var actualState = StateAssembler.AssembleState(eventLog, expectedState);
+
+            // Assert
+            Utilities.StatesAreEqual(expectedState, actualState);
+        }
+
+        [TestMethod]
+        public void AssembleState_AcceptsSnapshotStateChangesEndTime()
+        {
+            // Arrange
+            var snapshotState = new SystemState()
+            {
+                EventCount = 2,
+                OfficeHours = new List<OfficeHours>()
+                {
+                    new OfficeHours()
+                    {
+                        Cancelled = false,
+                        Bookings = new List<Booking>(),
+                        HostName = "Severus Snape",
+                        Title = "DADA Office Hours",
+                        StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                        EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                        Location = "HWT 204",
+                        Id = "0"
+                    }
+                }
+            };
+            var expectedState = new SystemState()
+            {
+                EventCount = 3,
+                OfficeHours = new List<OfficeHours>()
+                {
+                    new OfficeHours()
+                    {
+                        Cancelled = false,
+                        Bookings = new List<Booking>(),
+                        HostName = "Severus Snape",
+                        Title = "DADA Office Hours",
+                        StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                        EndTime = new DateTime(2019, 1, 1, 14, 0, 0),
+                        Location = "HWT 204",
+                        Id = "0"
+                    }
+                }
+            };
+
+            // Act
+            var eventLog = new EventLog();
+            eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload()
+            {
+                HostName = "Severus Snape",
+                Title = "DADA Office Hours",
+                StartTime = new DateTime(2019, 1, 1, 8, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                Location = "HWT 204",
+                Id = "0"
+            });
+            eventLog.RecordEvent(EventCode.ChangeStartTime, new ChangeStartTimeEventPayload()
+            {
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                OfficeHoursId = "0"
+            });
+            eventLog.RecordEvent(EventCode.ChangeEndTime, new ChangeEndTimeEventPayload()
+            {
+                EndTime = new DateTime(2019, 1, 1, 14, 0, 0),
+                OfficeHoursId = "0"
+            });
+            var actualState = StateAssembler.AssembleState(eventLog, expectedState);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
