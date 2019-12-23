@@ -1,6 +1,5 @@
 ﻿using PencilItIn.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 
 namespace PencilItIn.Test
 {
@@ -8,18 +7,20 @@ namespace PencilItIn.Test
     {
         public static void BookingsAreEqual(Booking b1, Booking b2)
         {
-            Assert.AreEqual(b1.Id, b2.Id, $"Expected booking id ({b1.Id} does not equal actual booking id {b2.Id})");
-            Assert.AreEqual(b1.StartTime, b2.StartTime, $"Expected booking start time ({b1.StartTime} does not equal actual booking start time {b2.StartTime})");
-            Assert.AreEqual(b1.EndTime, b2.EndTime, $"Expected booking end time ({b1.EndTime} does not equal actual booking end time {b2.EndTime})");
-            Assert.AreEqual(b1.Name, b2.Name, $"Expected booking name ({b1.Name} does not equal actual booking name {b2.Name})");
+            Assert.AreEqual(b1.Id, b2.Id);
+            Assert.AreEqual(b1.StartTime, b2.StartTime);
+            Assert.AreEqual(b1.EndTime, b2.EndTime);
+            Assert.AreEqual(b1.Name, b2.Name);
+            Assert.AreEqual(b1.Cancelled, b2.Cancelled);
         }
 
         public static void OfficeHoursAreEqual(OfficeHours o1, OfficeHours o2)
         {
-            Assert.AreEqual(o1.Id, o2.Id, $"Expected office hours id ({o1.StartTime} does not equal actual office hours id {o2.StartTime})");
-            Assert.AreEqual(o1.StartTime, o2.StartTime, $"Expected office hours start time ({o1.StartTime} does not equal actual office hours start time {o2.StartTime})");
-            Assert.AreEqual(o1.EndTime, o2.EndTime, $"Expected office hours end time ({o1.EndTime} does not equal actual office hours end time {o2.EndTime})");
-            Assert.AreEqual(o1.Location, o2.Location, $"Expected office hours location ({o1.Location} does not equal actual office hours location {o2.Location})");
+            Assert.AreEqual(o1.Id, o2.Id);
+            Assert.AreEqual(o1.StartTime, o2.StartTime);
+            Assert.AreEqual(o1.EndTime, o2.EndTime);
+            Assert.AreEqual(o1.Location, o2.Location);
+            Assert.AreEqual(o1.Cancelled, o2.Cancelled);
 
             for (int i = 0; i < o1.Bookings.Count; i++)
             {
@@ -27,11 +28,13 @@ namespace PencilItIn.Test
             }
         }
 
-        public static void StatesAreEqual(List<OfficeHours> s1, List<OfficeHours> s2)
+        public static void StatesAreEqual(SystemState s1, SystemState s2)
         {
-            for (int i = 0; i < s1.Count; i++)
+            Assert.AreEqual(s1.EventCount, s2.EventCount);
+
+            for (int i = 0; i < s1.OfficeHours.Count; i++)
             {
-                OfficeHoursAreEqual(s1[i], s2[i]);
+                OfficeHoursAreEqual(s1.OfficeHours[i], s2.OfficeHours[i]);
             }
         }
     }

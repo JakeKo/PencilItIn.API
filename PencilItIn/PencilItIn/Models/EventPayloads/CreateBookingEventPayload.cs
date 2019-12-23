@@ -2,7 +2,7 @@
 
 namespace PencilItIn.Models
 {
-    public class AddBookingEventPayload : IEventPayload
+    public class CreateBookingEventPayload : IEventPayload
     {
         public string Id { get; set; }
         public string Name { get; set; }
