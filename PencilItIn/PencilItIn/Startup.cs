@@ -21,6 +21,7 @@ namespace PencilItIn
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IEventLog, EventLog>();
+            services.AddSingleton<IStateAssembler, StateAssembler>();
             services.AddControllers();
         }
 

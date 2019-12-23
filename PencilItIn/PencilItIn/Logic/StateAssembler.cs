@@ -4,19 +4,20 @@ using System.Collections.Generic;
 
 namespace PencilItIn.Logic
 {
-    public static class StateAssembler
+    public class StateAssembler : IStateAssembler
     {
-        public static SystemState AssembleState(IEventLog eventLog)
+        public SystemState AssembleState(IEventLog eventLog)
         {
-            return AssembleState(eventLog, new SystemState()
+            return this.AssembleState(eventLog, new SystemState()
             {
                 EventCount = 0,
                 OfficeHours = new List<OfficeHours>()
             });
         }
 
-        public static SystemState AssembleState(IEventLog eventLog, SystemState snapshot)
+        public SystemState AssembleState(IEventLog eventLog, SystemState snapshot)
         {
+            // TODO: Deep copy system state
             var state = new SystemState()
             {
                 EventCount = eventLog.Log.Count,

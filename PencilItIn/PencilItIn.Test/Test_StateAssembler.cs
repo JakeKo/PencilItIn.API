@@ -43,7 +43,7 @@ namespace PencilItIn.Test
                 Location = "HWT 204",
                 Id = "0"
             });
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -103,7 +103,7 @@ namespace PencilItIn.Test
                 Location = "Great Hall",
                 Id = "1"
             });
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -161,7 +161,7 @@ namespace PencilItIn.Test
                 StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
                 EndTime = new DateTime(2019, 1, 1, 11, 0, 0)
             });
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -205,7 +205,7 @@ namespace PencilItIn.Test
             {
                 OfficeHoursId = "0"
             });
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -268,7 +268,7 @@ namespace PencilItIn.Test
                 OfficeHoursId = "0",
                 BookingId = "B0"
             });
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -313,7 +313,7 @@ namespace PencilItIn.Test
                 OfficeHoursId = "0",
                 StartTime = new DateTime(2019, 1, 1, 9, 0, 0)
             });
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -358,7 +358,7 @@ namespace PencilItIn.Test
                 OfficeHoursId = "0",
                 EndTime = new DateTime(2019, 1, 1, 13, 0, 0)
             });
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -403,7 +403,7 @@ namespace PencilItIn.Test
                 OfficeHoursId = "0",
                 Location = "Great Hall"
             });
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -421,7 +421,7 @@ namespace PencilItIn.Test
 
             // Act
             var eventLog = new EventLog();
-            var actualState = StateAssembler.AssembleState(eventLog);
+            var actualState = new StateAssembler().AssembleState(eventLog);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -466,7 +466,7 @@ namespace PencilItIn.Test
                 StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
                 OfficeHoursId = "0"
             });
-            var actualState = StateAssembler.AssembleState(eventLog, expectedState);
+            var actualState = new StateAssembler().AssembleState(eventLog, expectedState);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
@@ -534,7 +534,7 @@ namespace PencilItIn.Test
                 EndTime = new DateTime(2019, 1, 1, 14, 0, 0),
                 OfficeHoursId = "0"
             });
-            var actualState = StateAssembler.AssembleState(eventLog, snapshotState);
+            var actualState = new StateAssembler().AssembleState(eventLog, snapshotState);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
