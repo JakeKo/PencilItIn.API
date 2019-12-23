@@ -32,6 +32,7 @@ namespace PencilItIn.Logic
                         var addBookingEventPayload = (AddBookingEventPayload)e.Payload;
                         state.Find(o => o.Id.Equals(addBookingEventPayload.OfficeHoursId))
                             .Bookings.Add(new Booking() {
+                                Id = addBookingEventPayload.Id,
                                 Name = addBookingEventPayload.Name,
                                 StartTime = addBookingEventPayload.StartTime,
                                 EndTime = addBookingEventPayload.EndTime,
