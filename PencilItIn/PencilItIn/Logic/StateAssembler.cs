@@ -6,7 +6,7 @@ namespace PencilItIn.Logic
 {
     public static class StateAssembler
     {
-        public static SystemState AssembleState(EventLog eventLog)
+        public static SystemState AssembleState(IEventLog eventLog)
         {
             return AssembleState(eventLog, new SystemState()
             {
@@ -15,7 +15,7 @@ namespace PencilItIn.Logic
             });
         }
 
-        public static SystemState AssembleState(EventLog eventLog, SystemState snapshot)
+        public static SystemState AssembleState(IEventLog eventLog, SystemState snapshot)
         {
             var state = new SystemState()
             {

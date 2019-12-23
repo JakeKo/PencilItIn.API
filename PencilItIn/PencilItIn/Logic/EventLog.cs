@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace PencilItIn.Logic
 {
-    public class EventLog
+    public class EventLog : IEventLog
     {
         public List<Event> Log { get; } = new List<Event>();
 

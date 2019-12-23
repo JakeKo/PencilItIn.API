@@ -9,32 +9,35 @@ namespace PencilItIn.Controllers
     [ApiController]
     public class OfficeHoursController : ControllerBase
     {
+        private readonly IEventLog _eventLog;
+
+        public OfficeHoursController(IEventLog eventLog)
+        {
+            this._eventLog = eventLog;
+        }
+
         [HttpGet]
         public List<OfficeHours> Get()
         {
-            // TODO: Determine how to involve an application-wide EventLog
-            return StateAssembler.AssembleState(new EventLog()).OfficeHours;
+            return StateAssembler.AssembleState(this._eventLog).OfficeHours;
         }
 
         [HttpGet("{id}")]
         public OfficeHours Get(string id)
         {
-            var state = StateAssembler.AssembleState(new EventLog());
-            return state.OfficeHours.Find(o => o.Id.Equals(id));
+            return StateAssembler.AssembleState(this._eventLog).OfficeHours.Find(o => o.Id.Equals(id));
         }
 
         [HttpPost]
         public void Post([FromBody] CreateOfficeHoursEventPayload payload)
         {
-            var eventLog = new EventLog();
-            eventLog.RecordEvent(EventCode.CreateOfficeHours, payload);
+            this._eventLog.RecordEvent(EventCode.CreateOfficeHours, payload);
         }
 
         [HttpDelete("{id}")]
         public void Delete(string id)
         {
-            var eventLog = new EventLog();
-            eventLog.RecordEvent(EventCode.CancelOfficeHours, new CancelOfficeHoursEventPayload()
+            this._eventLog.RecordEvent(EventCode.CancelOfficeHours, new CancelOfficeHoursEventPayload()
             {
                 OfficeHoursId = id,
             });
