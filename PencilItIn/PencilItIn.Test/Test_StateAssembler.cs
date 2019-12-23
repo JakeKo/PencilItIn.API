@@ -534,7 +534,7 @@ namespace PencilItIn.Test
                 EndTime = new DateTime(2019, 1, 1, 14, 0, 0),
                 OfficeHoursId = "0"
             });
-            var actualState = StateAssembler.AssembleState(eventLog, expectedState);
+            var actualState = StateAssembler.AssembleState(eventLog, snapshotState);
 
             // Assert
             Utilities.StatesAreEqual(expectedState, actualState);
