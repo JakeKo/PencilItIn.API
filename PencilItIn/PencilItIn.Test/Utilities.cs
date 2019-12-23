@@ -1,5 +1,6 @@
 ﻿using PencilItIn.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace PencilItIn.Test
 {
@@ -23,6 +24,14 @@ namespace PencilItIn.Test
             for (int i = 0; i < o1.Bookings.Count; i++)
             {
                 BookingsAreEqual(o1.Bookings[i], o2.Bookings[i]);
+            }
+        }
+
+        public static void StatesAreEqual(List<OfficeHours> s1, List<OfficeHours> s2)
+        {
+            for (int i = 0; i < s1.Count; i++)
+            {
+                OfficeHoursAreEqual(s1[i], s2[i]);
             }
         }
     }
