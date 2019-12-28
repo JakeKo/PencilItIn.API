@@ -18,7 +18,7 @@ namespace PencilItIn.Test
             var expectedOfficeHours = new List<OfficeHours>();
 
             // Act
-            var actualOfficeHours = controller.Get();
+            var actualOfficeHours = controller.GetAllOfficeHours();
 
             // Assert
             for (int i = 0; i < expectedOfficeHours.Count; i++)
@@ -58,7 +58,7 @@ namespace PencilItIn.Test
             };
 
             // Act
-            var actualOfficeHours = controller.Get();
+            var actualOfficeHours = controller.GetAllOfficeHours();
 
             // Assert
             for (int i = 0; i < expectedOfficeHours.Count; i++)
@@ -95,7 +95,7 @@ namespace PencilItIn.Test
             };
 
             // Act
-            var actualOfficeHours = controller.Get("0");
+            var actualOfficeHours = controller.GetOfficeHours("0");
 
             // Assert
             Utilities.OfficeHoursAreEqual(expectedOfficeHours, actualOfficeHours);
@@ -118,7 +118,7 @@ namespace PencilItIn.Test
             var controller = new OfficeHoursController(eventLog, new StateAssembler());
 
             // Act
-            var actualOfficeHours = controller.Get("1");
+            var actualOfficeHours = controller.GetOfficeHours("1");
 
             // Assert
             Assert.IsNull(actualOfficeHours);
