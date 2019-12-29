@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace PencilItIn.Controllers
 {
-    [Route("api/v1/officehours")]
+    [Route("api/v1")]
     [ApiController]
     public class OfficeHoursController : ControllerBase
     {
@@ -15,24 +15,25 @@ namespace PencilItIn.Controllers
         public OfficeHoursController(IEventLog eventLog, IStateAssembler stateAssembler, IIdProvider idProvider) =>
             (this.eventLog, this.stateAssembler, this.idProvider) = (eventLog, stateAssembler, idProvider);
 
-        [HttpGet]
+        [HttpGet("officehours")]
         public List<OfficeHours> GetAllOfficeHours() =>
             this.stateAssembler.AssembleState(this.eventLog).OfficeHours;
 
-        [HttpGet("{id}")]
-        public OfficeHours GetOfficeHours(string id) =>
-            this.stateAssembler.AssembleState(this.eventLog).OfficeHours.Find(o => o.Id.Equals(id));
+        [HttpGet("officehours/{officeHoursId}")]
+        public OfficeHours GetOfficeHours(string officeHoursId) =>
+            this.stateAssembler.AssembleState(this.eventLog).OfficeHours.Find(o => o.Id.Equals(officeHoursId));
 
-        [HttpGet("{id}/bookings")]
-        public List<Booking> GetAllBookings(string id) =>
-            this.stateAssembler.AssembleState(this.eventLog).OfficeHours.Find(o => o.Id.Equals(id)).Bookings;
+        [HttpGet("officehours/{officeHoursId}/bookings")]
+        public List<Booking> GetAllBookings(string officeHoursId) =>
+            this.stateAssembler.AssembleState(this.eventLog).OfficeHours.Find(o => o.Id.Equals(officeHoursId)).Bookings;
 
-        [HttpGet("{officeHoursId}/bookings/{bookingId}")]
+        [HttpGet("officehours/{officeHoursId}/bookings/{bookingId}")]
         public Booking GetBooking(string officeHoursId, string bookingId) =>
             this.stateAssembler.AssembleState(this.eventLog).OfficeHours.Find(o => o.Id.Equals(officeHoursId)).Bookings.Find(b => b.Id.Equals(bookingId));
 
-        [HttpPost]
-        public string CreateOfficeHours([FromBody] CreateOfficeHoursBody body) {
+        [HttpPost("officehours")]
+        public string CreateOfficeHours([FromBody] CreateOfficeHoursBody body)
+        {
             var id = this.idProvider.ProvideId();
             this.eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload()
             {
@@ -47,13 +48,14 @@ namespace PencilItIn.Controllers
             return id;
         }
 
-        [HttpPost("{id}/bookings")]
-        public string CreateBooking(string id, [FromBody] CreateBookingBody body) {
+        [HttpPost("officehours/{officeHoursId}/bookings")]
+        public string CreateBooking(string officeHoursId, [FromBody] CreateBookingBody body)
+        {
             var bookingId = this.idProvider.ProvideId();
             this.eventLog.RecordEvent(EventCode.CreateBooking, new CreateBookingEventPayload()
             {
                 Id = bookingId,
-                OfficeHoursId = id,
+                OfficeHoursId = officeHoursId,
                 Name = body.Name,
                 StartTime = body.StartTime,
                 EndTime = body.EndTime
@@ -62,8 +64,12 @@ namespace PencilItIn.Controllers
             return bookingId;
         }
 
-        [HttpDelete("{id}")]
-        public void CancelOfficeHours(string id) =>
-            this.eventLog.RecordEvent(EventCode.CancelOfficeHours, new CancelOfficeHoursEventPayload() { OfficeHoursId = id });
+        [HttpDelete("officehours/{officeHoursId}")]
+        public void CancelOfficeHours(string officeHoursId) =>
+            this.eventLog.RecordEvent(EventCode.CancelOfficeHours, new CancelOfficeHoursEventPayload() { OfficeHoursId = officeHoursId });
+
+        [HttpDelete("officehours/{officeHoursId}/bookings/{bookingId}")]
+        public void CancelBooking(string officeHoursId, string bookingId) =>
+            this.eventLog.RecordEvent(EventCode.CancelBooking, new CancelBookingEventPayload() { OfficeHoursId = officeHoursId, BookingId = bookingId });
     }
 }

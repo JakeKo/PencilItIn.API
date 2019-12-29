@@ -275,5 +275,149 @@ namespace PencilItIn.Test
             // Assert
             Assert.ThrowsException<NullReferenceException>(() => controller.GetBooking("1", "1"));
         }
+
+        [TestMethod]
+        public void CreateOfficeHours_CreatesOfficeHours()
+        {
+            // Arrange
+            var controller = new OfficeHoursController(new EventLog(), new StateAssembler(), new MockIdProvider());
+            var expected = new OfficeHours()
+            {
+                Id = "0",
+                HostName = "Severus Snape",
+                Title = "DADA Office Hours",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                Location = "HWT 204",
+                Cancelled = false,
+                Bookings = new List<Booking>()
+            };
+
+            // Act
+            var id = controller.CreateOfficeHours(new CreateOfficeHoursBody()
+            {
+                HostName = "Severus Snape",
+                Title = "DAGA Office Hours",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                Location = "HWT 204",
+            });
+            var actual = controller.GetOfficeHours(id);
+
+            // Assert
+            Utilities.OfficeHoursAreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void CreateBooking_CreatesBooking()
+        {
+            // Arrange
+            var eventLog = new EventLog();
+            eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload()
+            {
+                HostName = "Severus Snape",
+                Title = "DADA Office Hours",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                Location = "HWT 204",
+                Id = "0"
+            });
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
+            var expected = new Booking()
+            {
+                Id = "0",
+                Name = "Hermoine Granger",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 11, 0, 0),
+                Cancelled = false
+            };
+
+            // Act
+            var id = controller.CreateBooking("0", new CreateBookingBody()
+            {
+                Name = "Hermoine Granger",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 11, 0, 0)
+            });
+            var actual = controller.GetBooking("0", id);
+
+            // Assert
+            Utilities.BookingsAreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void CancelOfficeHours_CancelsOfficeHours()
+        {
+            // Arrange
+            var eventLog = new EventLog();
+            eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload()
+            {
+                HostName = "Severus Snape",
+                Title = "DADA Office Hours",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                Location = "HWT 204",
+                Id = "0"
+            });
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
+            var expected = new OfficeHours()
+            {
+                HostName = "Severus Snape",
+                Title = "DADA Office Hours",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                Location = "HWT 204",
+                Cancelled = true,
+                Bookings = new List<Booking>(),
+                Id = "0"
+            };
+
+            // Act
+            controller.CancelOfficeHours("0");
+            var actual = controller.GetOfficeHours("0");
+
+            // Assert
+            Utilities.OfficeHoursAreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void CancelBooking_CancelsBooking()
+        {
+            // Arrange
+            var eventLog = new EventLog();
+            eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload()
+            {
+                HostName = "Severus Snape",
+                Title = "DADA Office Hours",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 12, 0, 0),
+                Location = "HWT 204",
+                Id = "0"
+            });
+            eventLog.RecordEvent(EventCode.CreateBooking, new CreateBookingEventPayload()
+            {
+                OfficeHoursId = "0",
+                Id = "1",
+                Name = "Hermoine Granger",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 10, 30, 0)
+            });
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
+            var expected = new Booking()
+            {
+                Id = "1",
+                Name = "Hermoine Granger",
+                StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
+                EndTime = new DateTime(2019, 1, 1, 10, 30, 0),
+                Cancelled = true
+            };
+
+            // Act
+            controller.CancelBooking("0", "1");
+            var actual = controller.GetBooking("0", "1");
+
+            // Assert
+            Utilities.BookingsAreEqual(expected, actual);
+        }
     }
 }
