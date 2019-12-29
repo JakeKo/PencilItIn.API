@@ -15,16 +15,13 @@ namespace PencilItIn.Test
         {
             // Arrange
             var controller = new OfficeHoursController(new EventLog(), new StateAssembler());
-            var expectedOfficeHours = new List<OfficeHours>();
+            var expected = new List<OfficeHours>();
 
             // Act
-            var actualOfficeHours = controller.GetAllOfficeHours();
+            var actual = controller.GetAllOfficeHours();
 
             // Assert
-            for (int i = 0; i < expectedOfficeHours.Count; i++)
-            {
-                Utilities.OfficeHoursAreEqual(expectedOfficeHours[i], actualOfficeHours[i]);
-            }
+            Utilities.ListsAreEqual(expected, actual, Utilities.OfficeHoursAreEqual);
         }
 
         [TestMethod]
@@ -42,7 +39,7 @@ namespace PencilItIn.Test
                 Id = "0"
             });
             var controller = new OfficeHoursController(eventLog, new StateAssembler());
-            var expectedOfficeHours = new List<OfficeHours>()
+            var expected = new List<OfficeHours>()
             {
                     new OfficeHours()
                     {
@@ -58,13 +55,10 @@ namespace PencilItIn.Test
             };
 
             // Act
-            var actualOfficeHours = controller.GetAllOfficeHours();
+            var actual = controller.GetAllOfficeHours();
 
             // Assert
-            for (int i = 0; i < expectedOfficeHours.Count; i++)
-            {
-                Utilities.OfficeHoursAreEqual(expectedOfficeHours[i], actualOfficeHours[i]);
-            }
+            Utilities.ListsAreEqual(expected, actual, Utilities.OfficeHoursAreEqual);
         }
 
         [TestMethod]
@@ -82,7 +76,7 @@ namespace PencilItIn.Test
                 Id = "0"
             });
             var controller = new OfficeHoursController(eventLog, new StateAssembler());
-            var expectedOfficeHours = new OfficeHours()
+            var expected = new OfficeHours()
             {
                 HostName = "Severus Snape",
                 Title = "DADA Office Hours",
@@ -95,10 +89,10 @@ namespace PencilItIn.Test
             };
 
             // Act
-            var actualOfficeHours = controller.GetOfficeHours("0");
+            var actual = controller.GetOfficeHours("0");
 
             // Assert
-            Utilities.OfficeHoursAreEqual(expectedOfficeHours, actualOfficeHours);
+            Utilities.OfficeHoursAreEqual(expected, actual);
         }
 
         [TestMethod]
@@ -118,10 +112,10 @@ namespace PencilItIn.Test
             var controller = new OfficeHoursController(eventLog, new StateAssembler());
 
             // Act
-            var actualOfficeHours = controller.GetOfficeHours("1");
+            var actual = controller.GetOfficeHours("1");
 
             // Assert
-            Assert.IsNull(actualOfficeHours);
+            Assert.IsNull(actual);
         }
 
         [TestMethod]
@@ -147,7 +141,7 @@ namespace PencilItIn.Test
                 EndTime = new DateTime(2019, 1, 1, 10, 30, 0)
             });
             var controller = new OfficeHoursController(eventLog, new StateAssembler());
-            var expectedBookings = new List<Booking>()
+            var expected = new List<Booking>()
             {
                 new Booking()
                 {
@@ -160,13 +154,10 @@ namespace PencilItIn.Test
             };
 
             // Act
-            var actualBookings = controller.GetAllBookings("0");
+            var actual = controller.GetAllBookings("0");
 
             // Assert
-            for (int i = 0; i < expectedBookings.Count; i++)
-            {
-                Utilities.BookingsAreEqual(expectedBookings[i], actualBookings[i]);
-            }
+            Utilities.ListsAreEqual(expected, actual, Utilities.BookingsAreEqual);
         }
     }
 }

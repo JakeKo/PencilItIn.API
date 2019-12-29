@@ -1,9 +1,10 @@
-﻿using PencilItIn.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PencilItIn.Models;
+using System;
+using System.Collections.Generic;
 
 namespace PencilItIn.Test
 {
-    // TODO: Provide better assertion for sets
     public static class Utilities
     {
         public static void BookingsAreEqual(Booking b1, Booking b2)
@@ -22,20 +23,31 @@ namespace PencilItIn.Test
             Assert.AreEqual(o1.EndTime, o2.EndTime);
             Assert.AreEqual(o1.Location, o2.Location);
             Assert.AreEqual(o1.Cancelled, o2.Cancelled);
-
-            for (int i = 0; i < o1.Bookings.Count; i++)
-            {
-                BookingsAreEqual(o1.Bookings[i], o2.Bookings[i]);
-            }
+            ListsAreEqual(o1.Bookings, o2.Bookings, BookingsAreEqual);
         }
 
         public static void StatesAreEqual(SystemState s1, SystemState s2)
         {
             Assert.AreEqual(s1.EventCount, s2.EventCount);
+            ListsAreEqual(s1.OfficeHours, s2.OfficeHours, OfficeHoursAreEqual);
+        }
 
-            for (int i = 0; i < s1.OfficeHours.Count; i++)
+        public static void ListsAreEqual<T>(IList<T> l1, IList<T> l2, Action<T, T> assertion)
+        {
+            if (l1 == null)
             {
-                OfficeHoursAreEqual(s1.OfficeHours[i], s2.OfficeHours[i]);
+                Assert.IsNull(l1);
+                Assert.IsNull(l2);
+            }
+            else
+            {
+                Assert.IsNotNull(l1);
+                Assert.IsNotNull(l2);
+                Assert.AreEqual(l1.Count, l1.Count);
+                for (int i = 0; i < l1.Count; i++)
+                {
+                    assertion(l1[i], l2[i]);
+                }
             }
         }
     }
