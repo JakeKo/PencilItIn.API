@@ -14,7 +14,7 @@ namespace PencilItIn.Test
         public void GetAllOfficeHours_ReturnsEmptySet()
         {
             // Arrange
-            var controller = new OfficeHoursController(new EventLog(), new StateAssembler());
+            var controller = new OfficeHoursController(new EventLog(), new StateAssembler(), new MockIdProvider());
             var expected = new List<OfficeHours>();
 
             // Act
@@ -38,7 +38,7 @@ namespace PencilItIn.Test
                 Location = "HWT 204",
                 Id = "0"
             });
-            var controller = new OfficeHoursController(eventLog, new StateAssembler());
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
             var expected = new List<OfficeHours>()
             {
                     new OfficeHours()
@@ -75,7 +75,7 @@ namespace PencilItIn.Test
                 Location = "HWT 204",
                 Id = "0"
             });
-            var controller = new OfficeHoursController(eventLog, new StateAssembler());
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
             var expected = new OfficeHours()
             {
                 HostName = "Severus Snape",
@@ -109,7 +109,7 @@ namespace PencilItIn.Test
                 Location = "HWT 204",
                 Id = "0"
             });
-            var controller = new OfficeHoursController(eventLog, new StateAssembler());
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
 
             // Act
             var actual = controller.GetOfficeHours("1");
@@ -140,7 +140,7 @@ namespace PencilItIn.Test
                 StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
                 EndTime = new DateTime(2019, 1, 1, 10, 30, 0)
             });
-            var controller = new OfficeHoursController(eventLog, new StateAssembler());
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
             var expected = new List<Booking>()
             {
                 new Booking()
@@ -174,7 +174,7 @@ namespace PencilItIn.Test
                 Location = "HWT 204",
                 Id = "0"
             });
-            var controller = new OfficeHoursController(eventLog, new StateAssembler());
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
             var expected = new List<Booking>();
 
             // Act
@@ -206,7 +206,7 @@ namespace PencilItIn.Test
                 StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
                 EndTime = new DateTime(2019, 1, 1, 10, 30, 0)
             });
-            var controller = new OfficeHoursController(eventLog, new StateAssembler());
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
             var expected = new Booking()
             {
                 Id = "1",
@@ -237,7 +237,7 @@ namespace PencilItIn.Test
                 Location = "HWT 204",
                 Id = "0"
             });
-            var controller = new OfficeHoursController(eventLog, new StateAssembler());
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
 
             // Act
             var actual = controller.GetBooking("0", "1");
@@ -268,7 +268,7 @@ namespace PencilItIn.Test
                 StartTime = new DateTime(2019, 1, 1, 10, 0, 0),
                 EndTime = new DateTime(2019, 1, 1, 10, 30, 0)
             });
-            var controller = new OfficeHoursController(eventLog, new StateAssembler());
+            var controller = new OfficeHoursController(eventLog, new StateAssembler(), new MockIdProvider());
 
             // Act
 

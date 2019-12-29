@@ -10,9 +10,10 @@ namespace PencilItIn.Controllers
     {
         private readonly IEventLog eventLog;
         private readonly IStateAssembler stateAssembler;
+        private readonly IIdProvider idProvider;
 
-        public OfficeHoursController(IEventLog eventLog, IStateAssembler stateAssembler) =>
-            (this.eventLog, this.stateAssembler) = (eventLog, stateAssembler);
+        public OfficeHoursController(IEventLog eventLog, IStateAssembler stateAssembler, IIdProvider idProvider) =>
+            (this.eventLog, this.stateAssembler, this.idProvider) = (eventLog, stateAssembler, idProvider);
 
         [HttpGet]
         public List<OfficeHours> GetAllOfficeHours() =>
@@ -32,7 +33,7 @@ namespace PencilItIn.Controllers
 
         [HttpPost]
         public string CreateOfficeHours([FromBody] CreateOfficeHoursBody body) {
-            var id = "";
+            var id = this.idProvider.ProvideId();
             this.eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload()
             {
                 Id = id,
@@ -48,7 +49,7 @@ namespace PencilItIn.Controllers
 
         [HttpPost("{id}/bookings")]
         public string CreateBooking(string id, [FromBody] CreateBookingBody body) {
-            var bookingId = "";
+            var bookingId = this.idProvider.ProvideId();
             this.eventLog.RecordEvent(EventCode.CreateBooking, new CreateBookingEventPayload()
             {
                 Id = bookingId,
