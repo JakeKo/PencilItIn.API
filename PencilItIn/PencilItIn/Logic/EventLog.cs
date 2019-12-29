@@ -6,6 +6,7 @@ namespace PencilItIn.Logic
     public class EventLog : IEventLog
     {
         public List<Event> Log { get; } = new List<Event>();
+        public Event LatestEvent { get => this.Log.Count == 0 ? null : this.Log[this.Log.Count - 1]; }
 
         public void RecordEvent(EventCode code, IEventPayload payload)
         {

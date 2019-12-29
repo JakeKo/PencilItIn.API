@@ -19,6 +19,7 @@ namespace PencilItIn.Test
         public static void OfficeHoursAreEqual(OfficeHours o1, OfficeHours o2)
         {
             Assert.AreEqual(o1.Id, o2.Id);
+            Assert.AreEqual(o1.Title, o2.Title);
             Assert.AreEqual(o1.StartTime, o2.StartTime);
             Assert.AreEqual(o1.EndTime, o2.EndTime);
             Assert.AreEqual(o1.Location, o2.Location);
@@ -49,6 +50,52 @@ namespace PencilItIn.Test
                     assertion(l1[i], l2[i]);
                 }
             }
+        }
+
+        public static void CreateOfficeHoursEventsAreEqual(Event expected, Event actual)
+        {
+            var expectedPayload = (CreateOfficeHoursEventPayload)expected.Payload;
+            var actualPayload = (CreateOfficeHoursEventPayload)actual.Payload;
+
+            Assert.AreEqual(expected.Code, actual.Code);
+            Assert.AreEqual(expectedPayload.Id, actualPayload.Id);
+            Assert.AreEqual(expectedPayload.HostName, actualPayload.HostName);
+            Assert.AreEqual(expectedPayload.Title, actualPayload.Title);
+            Assert.AreEqual(expectedPayload.StartTime, actualPayload.StartTime);
+            Assert.AreEqual(expectedPayload.EndTime, actualPayload.EndTime);
+            Assert.AreEqual(expectedPayload.Location, actualPayload.Location);
+        }
+
+        public static void CreateBookingEventsAreEqual(Event expected, Event actual)
+        {
+            var expectedPayload = (CreateBookingEventPayload)expected.Payload;
+            var actualPayload = (CreateBookingEventPayload)actual.Payload;
+
+            Assert.AreEqual(expected.Code, actual.Code);
+            Assert.AreEqual(expectedPayload.Id, actualPayload.Id);
+            Assert.AreEqual(expectedPayload.Name, actualPayload.Name);
+            Assert.AreEqual(expectedPayload.StartTime, actualPayload.StartTime);
+            Assert.AreEqual(expectedPayload.EndTime, actualPayload.EndTime);
+            Assert.AreEqual(expectedPayload.OfficeHoursId, actualPayload.OfficeHoursId);
+        }
+
+        public static void CancelOfficeHoursEventsAreEqual(Event expected, Event actual)
+        {
+            var expectedPayload = (CancelOfficeHoursEventPayload)expected.Payload;
+            var actualPayload = (CancelOfficeHoursEventPayload)actual.Payload;
+
+            Assert.AreEqual(expected.Code, actual.Code);
+            Assert.AreEqual(expectedPayload.OfficeHoursId, actualPayload.OfficeHoursId);
+        }
+
+        public static void CancelBookingEventsAreEqual(Event expected, Event actual)
+        {
+            var expectedPayload = (CancelBookingEventPayload)expected.Payload;
+            var actualPayload = (CancelBookingEventPayload)actual.Payload;
+
+            Assert.AreEqual(expected.Code, actual.Code);
+            Assert.AreEqual(expectedPayload.BookingId, actualPayload.BookingId);
+            Assert.AreEqual(expectedPayload.OfficeHoursId, actualPayload.OfficeHoursId);
         }
     }
 }
