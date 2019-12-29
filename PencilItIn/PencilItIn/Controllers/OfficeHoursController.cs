@@ -31,8 +31,35 @@ namespace PencilItIn.Controllers
             this.stateAssembler.AssembleState(this.eventLog).OfficeHours.Find(o => o.Id.Equals(officeHoursId)).Bookings.Find(b => b.Id.Equals(bookingId));
 
         [HttpPost]
-        public void CreateOfficeHours([FromBody] CreateOfficeHoursEventPayload payload) =>
-            this.eventLog.RecordEvent(EventCode.CreateOfficeHours, payload);
+        public string CreateOfficeHours([FromBody] CreateOfficeHoursBody body) {
+            var id = "";
+            this.eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload()
+            {
+                Id = id,
+                HostName = body.HostName,
+                Title = body.Title,
+                Location = body.Location,
+                StartTime = body.StartTime,
+                EndTime = body.EndTime
+            });
+
+            return id;
+        }
+
+        [HttpPost("{id}/bookings")]
+        public string CreateBooking(string id, [FromBody] CreateBookingBody body) {
+            var bookingId = "";
+            this.eventLog.RecordEvent(EventCode.CreateBooking, new CreateBookingEventPayload()
+            {
+                Id = bookingId,
+                OfficeHoursId = id,
+                Name = body.Name,
+                StartTime = body.StartTime,
+                EndTime = body.EndTime
+            });
+
+            return bookingId;
+        }
 
         [HttpDelete("{id}")]
         public void CancelOfficeHours(string id) =>
