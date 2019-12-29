@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace PencilItIn.Test
 {
+    // TODO: Provide better assertion for sets
     public static class Utilities
     {
         public static void BookingsAreEqual(Booking b1, Booking b2)
