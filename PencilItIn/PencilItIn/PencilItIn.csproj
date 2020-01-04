@@ -21,7 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\store\OfficeHours.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Models\EventPayloads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\store\OfficeHours.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
