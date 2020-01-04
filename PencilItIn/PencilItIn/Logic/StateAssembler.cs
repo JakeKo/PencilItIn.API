@@ -24,7 +24,7 @@ namespace PencilItIn.Logic
                 OfficeHours = new List<OfficeHours>(snapshot.OfficeHours)
             };
 
-            for (int i = snapshot.EventCount; i < eventLog.Log.Count; i++) 
+            for (int i = snapshot.EventCount; i < eventLog.Log.Count; i++)
             {
                 var e = eventLog.Log[i];
                 switch (e.Code)
@@ -46,7 +46,8 @@ namespace PencilItIn.Logic
                     case EventCode.CreateBooking:
                         var addBookingEventPayload = (CreateBookingEventPayload)e.Payload;
                         state.OfficeHours.Find(o => o.Id.Equals(addBookingEventPayload.OfficeHoursId))
-                            .Bookings.Add(new Booking() {
+                            .Bookings.Add(new Booking()
+                            {
                                 Id = addBookingEventPayload.Id,
                                 Name = addBookingEventPayload.Name,
                                 StartTime = addBookingEventPayload.StartTime,
