@@ -1,29 +1,18 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import thunk from 'redux-thunk';
 import { connectRouter, routerMiddleware } from 'connected-react-router';
 import { History } from 'history';
-import { ApplicationState, reducers } from './';
+import { applyMiddleware, combineReducers, compose, createStore, Store } from 'redux';
+import thunk from 'redux-thunk';
+import { ApplicationState } from './types';
+import * as OfficeHours from './OfficeHours';
 
-export default function configureStore(history: History, initialState?: ApplicationState) {
-    const middleware = [
-        thunk,
-        routerMiddleware(history)
-    ];
-
-    const rootReducer = combineReducers({
-        ...reducers,
+export default (history: History, initialState?: ApplicationState): Store => createStore(
+    combineReducers({
+        officeHours: OfficeHours.reducer,
         router: connectRouter(history)
-    });
-
-    const enhancers = [];
-    const windowIfDefined = typeof window === 'undefined' ? null : window as any;
-    if (windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__) {
-        enhancers.push(windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__());
-    }
-
-    return createStore(
-        rootReducer,
-        initialState,
-        compose(applyMiddleware(...middleware), ...enhancers)
-    );
-}
+    }),
+    initialState,
+    compose(
+        applyMiddleware(...[thunk, routerMiddleware(history)]),
+        ...(window && (window as any).__REDUX_DEVTOOLS_EXTENSION__ ? [(window as any).__REDUX_DEVTOOLS_EXTENSION__()] : [])
+    )
+);

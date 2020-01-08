@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Route } from 'react-router';
-import OfficeHours from './components/OfficeHours';
+import OfficeHoursComponent from './components/OfficeHoursComponent';
 
 export default () => (
-    <Route exact path='/' component={OfficeHours} />
+    <Route exact path='/' component={OfficeHoursComponent} />
 );
