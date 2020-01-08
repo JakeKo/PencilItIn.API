@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\components\OfficeHours.tsx" />
     <None Remove="ClientApp\src\store\OfficeHours.ts" />
   </ItemGroup>
 
@@ -29,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\components\OfficeHours.tsx" />
     <TypeScriptCompile Include="ClientApp\src\store\OfficeHours.ts" />
   </ItemGroup>
 
