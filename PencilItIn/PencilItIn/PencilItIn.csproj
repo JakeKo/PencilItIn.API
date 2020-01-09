@@ -21,8 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="ClientApp\src\components\OfficeHours.tsx" />
+    <None Remove="ClientApp\src\components\BookingComponent.tsx" />
+    <None Remove="ClientApp\src\components\OfficeHoursComponent.tsx" />
     <None Remove="ClientApp\src\store\OfficeHours.ts" />
+    <None Remove="ClientApp\src\store\types.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,8 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="ClientApp\src\components\OfficeHours.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\BookingComponent.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\OfficeHoursComponent.tsx" />
     <TypeScriptCompile Include="ClientApp\src\store\OfficeHours.ts" />
+    <TypeScriptCompile Include="ClientApp\src\store\types.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

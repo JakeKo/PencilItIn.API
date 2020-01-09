@@ -32,6 +32,20 @@ const store = configureStore(history, {
                     endTime: new Date(2020, 1, 1, 11, 30, 0),
                     name: 'Hermoine Granger',
                     cancelled: false
+                },
+                {
+                    id: '1fbf097a-0032-44fe-b2d8-422f6e80cb85',
+                    startTime: new Date(2020, 1, 1, 11, 30, 0),
+                    endTime: new Date(2020, 1, 1, 12, 30, 0),
+                    name: 'Hermoine Granger',
+                    cancelled: false
+                },
+                {
+                    id: '1fbf097a-0018-44fe-b2d8-422f6e80cb85',
+                    startTime: new Date(2020, 1, 1, 13, 0, 0),
+                    endTime: new Date(2020, 1, 1, 13, 30, 0),
+                    name: 'Hermoine Granger',
+                    cancelled: false
                 }
             ]
         }
