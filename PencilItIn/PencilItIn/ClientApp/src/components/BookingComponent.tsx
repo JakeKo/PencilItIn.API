@@ -9,8 +9,13 @@ class BookingComponent extends React.PureComponent<BookingComponentProps> {
         position: 'absolute',
         top: `${2 * minutesElapsed(this.props.officeHoursStartTime, this.props.booking.startTime)}px`,
         height: `${2 * minutesElapsed(this.props.booking.startTime, this.props.booking.endTime)}px`,
-        width: '90%',
-        backgroundColor: 'pink'
+        width: '95%',
+        backgroundColor: 'grey',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white',
+        fontWeight: 800
     });
 
     public render: () => JSX.Element = (): JSX.Element => (

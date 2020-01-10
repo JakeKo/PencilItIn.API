@@ -23,20 +23,40 @@ var OfficeHoursComponent = /** @class */ (function (_super) {
     function OfficeHoursComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.getStyle = function () { return ({
-            backgroundColor: 'blue',
+            height: 2 * minutesElapsed(_this.props.officeHours.startTime, _this.props.officeHours.endTime) + "px",
             position: 'relative',
-            height: 2 * minutesElapsed(_this.props.officeHours.startTime, _this.props.officeHours.endTime) + "px"
+            width: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            backgroundColor: 'white',
+            border: '1px solid grey',
+            boxSizing: 'border-box',
+            borderRadius: '3px'
         }); };
-        _this.render = function () { return (React.createElement(React.Fragment, null, _this.props.officeHours && React.createElement(React.Fragment, null,
-            React.createElement("h1", null, _this.props.officeHours.title),
-            React.createElement("h4", null,
+        _this.getDashLinePositions = function () {
+            var startTime = new Date(_this.props.officeHours.startTime.getFullYear(), _this.props.officeHours.startTime.getMonth(), _this.props.officeHours.startTime.getDate(), _this.props.officeHours.startTime.getHours() + 1);
+            var endTime = new Date(_this.props.officeHours.endTime.getFullYear(), _this.props.officeHours.endTime.getMonth(), _this.props.officeHours.endTime.getDate(), _this.props.officeHours.endTime.getHours() - (_this.props.officeHours.endTime.getMinutes() === 0 ? 1 : 0));
+            var times = [];
+            for (var t = startTime; t <= endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
+                times.push(t);
+            }
+            return times.map(function (t) { return minutesElapsed(_this.props.officeHours.startTime, t); });
+        };
+        _this.render = function () { return (React.createElement("div", { style: { display: 'flex', flexDirection: 'column', alignItems: 'center' } }, _this.props.officeHours && React.createElement("div", { style: { width: '500px', display: 'flex', flexDirection: 'column', alignItems: 'center' } },
+            React.createElement("div", { style: { fontFamily: 'sans-serif', fontSize: '32px' } }, _this.props.officeHours.title),
+            React.createElement("div", null,
                 _this.props.officeHours.hostName,
                 " (",
                 _this.props.officeHours.location,
                 ")"),
-            React.createElement("div", { style: _this.getStyle() }, _this.props.officeHours.bookings.map(function (booking) {
-                return React.createElement(BookingComponent_1.default, { key: Math.random(), officeHoursStartTime: _this.props.officeHours.startTime, booking: booking });
-            }))))); };
+            React.createElement("div", { style: _this.getStyle() },
+                _this.getDashLinePositions().map(function (position) {
+                    return React.createElement("div", { key: Math.random(), style: { borderTop: '1px dashed grey', width: '100%', position: 'absolute', top: 2 * position + "px" } });
+                }),
+                _this.props.officeHours.bookings.map(function (booking) {
+                    return React.createElement(BookingComponent_1.default, { key: Math.random(), officeHoursStartTime: _this.props.officeHours.startTime, booking: booking });
+                }))))); };
         return _this;
     }
     return OfficeHoursComponent;

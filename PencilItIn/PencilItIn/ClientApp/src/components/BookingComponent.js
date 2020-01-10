@@ -23,8 +23,13 @@ var BookingComponent = /** @class */ (function (_super) {
             position: 'absolute',
             top: 2 * minutesElapsed(_this.props.officeHoursStartTime, _this.props.booking.startTime) + "px",
             height: 2 * minutesElapsed(_this.props.booking.startTime, _this.props.booking.endTime) + "px",
-            width: '90%',
-            backgroundColor: 'pink'
+            width: '95%',
+            backgroundColor: 'grey',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+            fontWeight: 800
         }); };
         _this.render = function () { return (React.createElement("div", { style: _this.getStyle() }, "BUSY")); };
         return _this;

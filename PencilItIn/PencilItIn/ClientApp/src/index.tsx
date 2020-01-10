@@ -19,8 +19,8 @@ const store = configureStore(history, {
         isLoading: false,
         officeHours: {
             id: 'baddd006-a022-471d-8f19-c8d56e2079ed',
-            startTime: new Date(2020, 1, 1, 10, 0, 0),
-            endTime: new Date(2020, 1, 1, 14, 0, 0),
+            startTime: new Date(2020, 1, 1, 10, 15, 0),
+            endTime: new Date(2020, 1, 1, 14, 30, 0),
             location: 'Hogwart\'s School of Witchcraft and Wizardry',
             hostName: 'Severus Snape',
             title: 'DAGA Office Hours',
