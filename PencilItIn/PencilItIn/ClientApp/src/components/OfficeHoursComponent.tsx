@@ -2,12 +2,12 @@
 import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router';
 import { actionCreators } from '../store/OfficeHours';
-import { ApplicationState, Booking, OfficeHoursState } from '../store/types';
-import BookingComponent from './BookingComponent';
+import { ApplicationState, Booking, OfficeHoursActionCreators, OfficeHoursState } from '../store/types';
 import { minutesElapsed } from '../utilities';
+import BookingComponent from './BookingComponent';
 import CreateBookingFormComponent from './CreateBookingFormComponent';
 
-type OfficeHoursComponentProps = OfficeHoursState & typeof actionCreators & RouteComponentProps<{}>;
+type OfficeHoursComponentProps = OfficeHoursState & OfficeHoursActionCreators & RouteComponentProps<{}>;
 type OfficeHoursComponentStyles = {
     page: () => React.CSSProperties,
     container: () => React.CSSProperties,

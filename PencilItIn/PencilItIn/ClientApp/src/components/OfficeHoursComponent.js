@@ -16,8 +16,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var react_redux_1 = require("react-redux");
 var OfficeHours_1 = require("../store/OfficeHours");
-var BookingComponent_1 = require("./BookingComponent");
 var utilities_1 = require("../utilities");
+var BookingComponent_1 = require("./BookingComponent");
 var CreateBookingFormComponent_1 = require("./CreateBookingFormComponent");
 var OfficeHoursComponent = /** @class */ (function (_super) {
     __extends(OfficeHoursComponent, _super);

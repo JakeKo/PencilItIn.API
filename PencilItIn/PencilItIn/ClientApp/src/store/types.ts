@@ -22,6 +22,21 @@ export type OfficeHours = {
     bookings: Booking[]
 };
 
+export type OfficeHoursResponseBody = {
+    id: string,
+    startTime: string,
+    endTime: string,
+    location: string,
+    hostName: string,
+    title: string,
+    cancelled: boolean,
+    bookings: BookingResponseBody[]
+};
+
+export type OfficeHoursActionCreators = {
+    requestOfficeHours: (officeHoursId: string) => AppThunkAction<OfficeHoursAction>
+};
+
 export type RequestOfficeHoursAction = {
     type: 'REQUEST_OFFICE_HOURS',
     officeHoursId: string
@@ -39,6 +54,14 @@ export type Booking = {
     id: string,
     startTime: Date,
     endTime: Date,
+    name: string,
+    cancelled: boolean
+};
+
+export type BookingResponseBody = {
+    id: string,
+    startTime: string,
+    endTime: string,
     name: string,
     cancelled: boolean
 };

@@ -1,6 +1,6 @@
 ﻿import axios, { AxiosResponse } from 'axios';
 import { Reducer } from 'redux';
-import { ApplicationState, AppThunkAction, Booking, OfficeHoursAction, OfficeHoursState, ReceiveOfficeHoursAction } from './types';
+import { ApplicationState, AppThunkAction, Booking, BookingResponseBody, OfficeHoursAction, OfficeHoursResponseBody, OfficeHoursState, ReceiveOfficeHoursAction } from './types';
 
 export const actionCreators = {
     requestOfficeHours: (officeHoursId: string): AppThunkAction<OfficeHoursAction> => (dispatch, getState) => {
@@ -13,7 +13,7 @@ export const actionCreators = {
         axios({
             url: `api/v1/officehours/${officeHoursId}`,
             method: 'GET'
-        }).then((response: AxiosResponse<any>): void => {
+        }).then((response: AxiosResponse<OfficeHoursResponseBody>): void => {
             dispatch({
                 type: 'RECEIVE_OFFICE_HOURS',
                 officeHours: {
@@ -24,7 +24,7 @@ export const actionCreators = {
                     cancelled: response.data.cancelled,
                     startTime: new Date(response.data.startTime),
                     endTime: new Date(response.data.endTime),
-                    bookings: response.data.bookings.map((b: any): Booking => ({
+                    bookings: response.data.bookings.map((b: BookingResponseBody): Booking => ({
                         id: b.id,
                         name: b.name,
                         cancelled: b.cancelled,

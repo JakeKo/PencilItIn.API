@@ -14,24 +14,26 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var minutesElapsed = function (t1, t2) { return Math.abs(t1.valueOf() - t2.valueOf()) / 60000; };
+var utilities_1 = require("../utilities");
 var BookingComponent = /** @class */ (function (_super) {
     __extends(BookingComponent, _super);
     function BookingComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.getStyle = function () { return ({
-            position: 'absolute',
-            top: 2 * minutesElapsed(_this.props.officeHoursStartTime, _this.props.booking.startTime) + "px",
-            height: 2 * minutesElapsed(_this.props.booking.startTime, _this.props.booking.endTime) + "px",
-            width: '95%',
-            backgroundColor: 'grey',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: 'white',
-            fontWeight: 800
-        }); };
-        _this.render = function () { return (React.createElement("div", { style: _this.getStyle() }, "BUSY")); };
+        _this.styles = {
+            block: function () { return ({
+                position: 'absolute',
+                top: 2 * utilities_1.minutesElapsed(_this.props.officeHoursStartTime, _this.props.booking.startTime) + "px",
+                height: 2 * utilities_1.minutesElapsed(_this.props.booking.startTime, _this.props.booking.endTime) + "px",
+                width: '95%',
+                backgroundColor: 'grey',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                color: 'white',
+                fontWeight: 800
+            }); }
+        };
+        _this.render = function () { return (React.createElement("div", { style: _this.styles.block() }, "BUSY")); };
         return _this;
     }
     return BookingComponent;
