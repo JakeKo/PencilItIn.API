@@ -14,6 +14,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var axios_1 = require("axios");
 var CreateBookingFormComponent = /** @class */ (function (_super) {
     __extends(CreateBookingFormComponent, _super);
     function CreateBookingFormComponent() {
@@ -22,15 +23,18 @@ var CreateBookingFormComponent = /** @class */ (function (_super) {
         _this.createBooking = function (event) {
             event.preventDefault();
             // Treat the form element as an array of input elements to get key-value pairs
-            var _a = event.target, nameField = _a[0], startTimeField = _a[1], endTimeField = _a[2];
-            var booking = {
-                id: 'temp_booking',
-                name: nameField.value,
-                // TODO: Populate date value with accurate date
-                startTime: new Date(2020, 1, 1, Number(startTimeField.value.split(':')[0])),
-                endTime: new Date(2020, 1, 1, Number(endTimeField.value.split(':')[0])),
-                cancelled: false
-            };
+            var _a = event.target, name = _a[0], startTime = _a[1], endTime = _a[2];
+            console.log(event);
+            axios_1.default({
+                url: "officehours/" + _this.props.officeHours.id + "/bookings",
+                method: 'POST',
+                data: {
+                    name: name.value,
+                    // TODO: Populate date value with accurate date
+                    startTime: new Date(2020, 1, 1, Number(startTime.value.split(':')[0])),
+                    endTime: new Date(2020, 1, 1, Number(endTime.value.split(':')[0])),
+                }
+            }).then(console.log).catch(console.error);
         };
         _this.render = function () { return (React.createElement("form", { onSubmit: _this.createBooking },
             React.createElement("label", { htmlFor: 'name' }, "Name"),
