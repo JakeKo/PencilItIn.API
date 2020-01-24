@@ -8,7 +8,6 @@ import { Provider } from 'react-redux';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
-import { Booking } from './store/types';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
@@ -40,7 +39,7 @@ axios({
             endTime: new Date(2020, 1, 1, 11, 30, 0)
         }
     });
-
+        
     axios({
         url: `api/v1/officehours/${response.data}/bookings`,
         method: 'POST',
@@ -53,7 +52,7 @@ axios({
             endTime: new Date(2020, 1, 1, 12, 30, 0)
         }
     });
-
+    
     axios({
         url: `api/v1/officehours/${response.data}/bookings`,
         method: 'POST',
@@ -66,42 +65,17 @@ axios({
             endTime: new Date(2020, 1, 1, 13, 30, 0)
         }
     });
-
-    const { data }: { data: any } = await axios({
-        url: `api/v1/officehours/${response.data}`,
-        method: 'GET'
-    });
-
-    // Get the application-wide store instance, prepopulating with state from the server where available.
-    const store = configureStore(history, {
-        officeHours: {
-            isLoading: false,
-            officeHours: {
-                id: data.id,
-                title: data.title,
-                hostName: data.hostName,
-                location: data.location,
-                cancelled: data.cancelled,
-                startTime: new Date(data.startTime),
-                endTime: new Date(data.endTime),
-                bookings: data.bookings.map((b: any): Booking => ({
-                    id: b.id,
-                    name: b.name,
-                    cancelled: b.cancelled,
-                    startTime: new Date(b.startTime),
-                    endTime: new Date(b.endTime)
-                }))
-            }
-        }
-    });
-
-    ReactDOM.render(
-        <Provider store={store}>
-            <ConnectedRouter history={history}>
-                <App />
-            </ConnectedRouter>
-        </Provider>,
-        document.getElementById('root'));
-
-    registerServiceWorker();
 });
+
+// Get the application-wide store instance, prepopulating with state from the server where available.
+const store = configureStore(history);
+
+ReactDOM.render(
+    <Provider store={store}>
+        <ConnectedRouter history={history}>
+            <App />
+        </ConnectedRouter>
+    </Provider>,
+    document.getElementById('root'));
+
+registerServiceWorker();

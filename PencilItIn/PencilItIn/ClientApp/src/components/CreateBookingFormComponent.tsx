@@ -13,16 +13,23 @@ class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormCo
         event.preventDefault();
 
         // Treat the form element as an array of input elements to get key-value pairs
-        const [name, startTime, endTime]: HTMLInputElement[] = (event.target as unknown as HTMLInputElement[]);
-        console.log(event);
+        const [nameField, startTimeField, endTimeField]: HTMLInputElement[] = (event.target as unknown as HTMLInputElement[]);
+
+        const startTime: Date = new Date(this.props.officeHours.startTime);
+        startTime.setUTCHours(Number(startTimeField.value.split(':')[0]));
+        startTime.setUTCMinutes(Number(startTimeField.value.split(':')[1]));
+
+        const endTime: Date = new Date(this.props.officeHours.endTime);
+        endTime.setUTCHours(Number(endTimeField.value.split(':')[0]));
+        endTime.setUTCMinutes(Number(endTimeField.value.split(':')[1]));
+
         axios({
             url: `officehours/${this.props.officeHours.id}/bookings`,
             method: 'POST',
             data: {
-                name: name.value,
-                // TODO: Populate date value with accurate date
-                startTime: new Date(2020, 1, 1, Number(startTime.value.split(':')[0])),
-                endTime: new Date(2020, 1, 1, Number(endTime.value.split(':')[0])),
+                name: nameField.value,
+                startTime,
+                endTime
             }
         }).then(console.log).catch(console.error);
     }

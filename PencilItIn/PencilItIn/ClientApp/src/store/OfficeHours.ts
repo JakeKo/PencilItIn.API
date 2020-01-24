@@ -1,5 +1,6 @@
-﻿import { Reducer } from 'redux';
-import { ApplicationState, AppThunkAction, OfficeHours, OfficeHoursAction, OfficeHoursState, ReceiveOfficeHoursAction } from './types';
+﻿import axios, { AxiosResponse } from 'axios';
+import { Reducer } from 'redux';
+import { ApplicationState, AppThunkAction, Booking, OfficeHoursAction, OfficeHoursState, ReceiveOfficeHoursAction } from './types';
 
 export const actionCreators = {
     requestOfficeHours: (officeHoursId: string): AppThunkAction<OfficeHoursAction> => (dispatch, getState) => {
@@ -9,10 +10,30 @@ export const actionCreators = {
         }
 
         dispatch({ type: 'REQUEST_OFFICE_HOURS', officeHoursId });
-        fetch(`api/v1/officehours/${officeHoursId}`)
-            .then((response: Response) => response.json() as Promise<OfficeHours | undefined>)
-            .then((officeHours: OfficeHours | undefined) => dispatch({ type: 'RECEIVE_OFFICE_HOURS', officeHours }))
-            .catch(console.error);
+        axios({
+            url: `api/v1/officehours/${officeHoursId}`,
+            method: 'GET'
+        }).then((response: AxiosResponse<any>): void => {
+            dispatch({
+                type: 'RECEIVE_OFFICE_HOURS',
+                officeHours: {
+                    id: response.data.id,
+                    title: response.data.title,
+                    hostName: response.data.hostName,
+                    location: response.data.location,
+                    cancelled: response.data.cancelled,
+                    startTime: new Date(response.data.startTime),
+                    endTime: new Date(response.data.endTime),
+                    bookings: response.data.bookings.map((b: any): Booking => ({
+                        id: b.id,
+                        name: b.name,
+                        cancelled: b.cancelled,
+                        startTime: new Date(b.startTime),
+                        endTime: new Date(b.endTime)
+                    }))
+                }
+            })
+        }).catch(console.error);
     }
 };
 
