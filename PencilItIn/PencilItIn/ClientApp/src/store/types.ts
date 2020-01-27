@@ -34,7 +34,8 @@ export type OfficeHoursResponseBody = {
 };
 
 export type OfficeHoursActionCreators = {
-    requestOfficeHours: (officeHoursId: string) => AppThunkAction<OfficeHoursAction>
+    requestOfficeHours: (officeHoursId: string) => AppThunkAction<OfficeHoursAction>,
+    createBooking: (officeHoursId: string, booking: BookingRequestBody) => AppThunkAction<OfficeHoursAction>
 };
 
 export type RequestOfficeHoursAction = {
@@ -47,7 +48,27 @@ export type ReceiveOfficeHoursAction = {
     officeHours: OfficeHours | undefined
 };
 
-export type OfficeHoursAction = RequestOfficeHoursAction | ReceiveOfficeHoursAction;
+export type CreateBookingAction = {
+    type: 'CREATE_BOOKING',
+    booking: BookingRequestBody
+};
+
+export type BookingCreatedAction = {
+    type: 'BOOKING_CREATED',
+    bookingId: string
+};
+
+export type RequestBookingAction = {
+    type: 'REQUEST_BOOKING',
+    bookingId: string
+};
+
+export type ReceiveBookingAction = {
+    type: 'RECEIVE_BOOKING',
+    booking: Booking
+};
+
+export type OfficeHoursAction = RequestOfficeHoursAction | ReceiveOfficeHoursAction | CreateBookingAction | BookingCreatedAction | RequestBookingAction | ReceiveBookingAction;
 
 /* Booking Types */
 export type Booking = {
@@ -64,4 +85,10 @@ export type BookingResponseBody = {
     endTime: string,
     name: string,
     cancelled: boolean
+};
+
+export type BookingRequestBody = {
+    name: string,
+    startTime: Date,
+    endTime: Date
 };

@@ -73,7 +73,7 @@ var OfficeHoursComponent = /** @class */ (function (_super) {
                 " (",
                 _this.props.officeHours.location,
                 ")"),
-            React.createElement(CreateBookingFormComponent_1.default, { officeHours: _this.props.officeHours }),
+            React.createElement(CreateBookingFormComponent_1.default, { officeHours: _this.props.officeHours, createBooking: _this.props.createBooking }),
             React.createElement("div", { style: _this.styles.display() },
                 _this.dividerPositions().map(function (position) { return React.createElement("div", { key: Math.random(), style: _this.styles.divider(position) }); }),
                 _this.props.officeHours.bookings.map(function (booking) {

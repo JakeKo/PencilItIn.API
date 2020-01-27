@@ -1,10 +1,7 @@
 ﻿import * as React from 'react';
-import axios from 'axios';
-import { OfficeHours } from '../store/types';
+import { BookingRequestBody, OfficeHours } from '../store/types';
 
-type CreateBookingFormComponentProps = {
-    officeHours: OfficeHours
-};
+type CreateBookingFormComponentProps = { officeHours: OfficeHours, createBooking: (officeHoursId: string, booking: BookingRequestBody) => void };
 type CreateBookingFormComponentStyles = {};
 class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
     private styles: CreateBookingFormComponentStyles = {};
@@ -15,24 +12,20 @@ class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormCo
         // Treat the form element as an array of input elements to get key-value pairs
         const [nameField, startTimeField, endTimeField]: HTMLInputElement[] = (event.target as unknown as HTMLInputElement[]);
 
-        const startTime: Date = new Date(this.props.officeHours.startTime);
+        const startTime: Date = new Date(this.props.officeHours.startTime.valueOf());
         startTime.setUTCHours(Number(startTimeField.value.split(':')[0]));
         startTime.setUTCMinutes(Number(startTimeField.value.split(':')[1]));
 
-        const endTime: Date = new Date(this.props.officeHours.endTime);
+        const endTime: Date = new Date(this.props.officeHours.endTime.valueOf());
         endTime.setUTCHours(Number(endTimeField.value.split(':')[0]));
         endTime.setUTCMinutes(Number(endTimeField.value.split(':')[1]));
 
-        axios({
-            url: `officehours/${this.props.officeHours.id}/bookings`,
-            method: 'POST',
-            data: {
-                name: nameField.value,
-                startTime,
-                endTime
-            }
-        }).then(console.log).catch(console.error);
-    }
+        this.props.createBooking(this.props.officeHours.id, {
+            name: nameField.value,
+            startTime,
+            endTime
+        });
+    };
 
     public render: () => JSX.Element = (): JSX.Element => (
         <form onSubmit={this.createBooking}>

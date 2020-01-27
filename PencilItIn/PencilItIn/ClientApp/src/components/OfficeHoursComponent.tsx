@@ -73,7 +73,7 @@ class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps
             {this.props.officeHours && <div style={this.styles.container()}>
                 <div style={this.styles.heading()}>{this.props.officeHours.title}</div>
                 <div>{this.props.officeHours.hostName} ({this.props.officeHours.location})</div>
-                <CreateBookingFormComponent officeHours={this.props.officeHours} />
+                <CreateBookingFormComponent officeHours={this.props.officeHours} createBooking={this.props.createBooking} />
                 <div style={this.styles.display()}>
                     {this.dividerPositions().map((position: number): JSX.Element => <div key={Math.random()} style={this.styles.divider(position)}></div>)}
                     {this.props.officeHours.bookings.map((booking: Booking): JSX.Element =>
