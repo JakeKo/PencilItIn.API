@@ -46,8 +46,6 @@ export const reducer: Reducer<OfficeHoursState, OfficeHoursAction> = (state: Off
         return { officeHours: undefined, isLoading: false };
     }
 
-    console.log(action);
-
     switch (action.type) {
         case 'REQUEST_OFFICE_HOURS':
             return {

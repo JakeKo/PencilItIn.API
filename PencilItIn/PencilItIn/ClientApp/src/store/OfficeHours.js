@@ -59,7 +59,6 @@ exports.reducer = function (state, action) {
     if (state === undefined) {
         return { officeHours: undefined, isLoading: false };
     }
-    console.log(action);
     switch (action.type) {
         case 'REQUEST_OFFICE_HOURS':
             return {

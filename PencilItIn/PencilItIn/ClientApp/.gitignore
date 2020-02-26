@@ -9,6 +9,10 @@
 # production
 /build
 
+# source map
+/src/*.js
+/src/*.js.map
+
 # misc
 .DS_Store
 .env.local
