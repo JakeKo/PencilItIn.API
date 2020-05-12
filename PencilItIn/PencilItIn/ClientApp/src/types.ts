@@ -65,7 +65,7 @@ export type BookingComponentStyles = {
 
 export type CreateBookingFormComponentProps = {
     officeHours: OfficeHours,
-    createBooking: (booking: BookingRequestBody) => void
+    createBooking: (officeHours: OfficeHours, booking: BookingRequestBody) => void
 };
 
 export type CreateBookingFormComponentStyles = {};

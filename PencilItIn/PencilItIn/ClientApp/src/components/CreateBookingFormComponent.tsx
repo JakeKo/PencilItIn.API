@@ -19,7 +19,7 @@ class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormCo
         endTime.setUTCHours(Number(endTimeField.value.split(':')[0]));
         endTime.setUTCMinutes(Number(endTimeField.value.split(':')[1]));
 
-        createBooking({ name: nameField.value, startTime, endTime });
+        createBooking(this.props.officeHours, { name: nameField.value, startTime, endTime });
     };
 
     public render: () => JSX.Element = () => (
