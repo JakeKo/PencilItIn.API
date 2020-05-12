@@ -22,7 +22,7 @@ export const responseBodyToBooking: (b: BookingResponseBody) => Booking = b => (
     endTime: new Date(b.endTime)
 });
 
-export const seedData: () => Promise<void> = async () => {
+export const seedData = async () => {
     const officeHoursResponse: AxiosResponse<string> = await axios({
         url: 'api/v1/officehours',
         method: 'POST',
@@ -30,8 +30,8 @@ export const seedData: () => Promise<void> = async () => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         data: {
-            startTime: new Date('20200101T10:30:00.00Z'),
-            endTime: new Date('20200101T14:30:00.00Z'),
+            startTime: new Date('2020-01-01T10:30:00.00'),
+            endTime: new Date('2020-01-01T14:30:00.00'),
             location: 'Hogwart\'s School of Witchcraft and Wizardry',
             hostName: 'Severus Snape',
             title: 'DAGA Office Hours'
@@ -47,8 +47,8 @@ export const seedData: () => Promise<void> = async () => {
         },
         data: {
             name: 'Hermoine Granger',
-            startTime: new Date('20200101T11:00:00.00Z'),
-            endTime: new Date('20200101T11:30:00.00Z')
+            startTime: new Date('2020-01-01T11:00:00.00'),
+            endTime: new Date('2020-01-01T11:30:00.00')
         }
     });
 
@@ -59,9 +59,9 @@ export const seedData: () => Promise<void> = async () => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         data: {
-            name: 'Hermoine Granger',
-            startTime: new Date('20200101T11:30:00.00Z'),
-            endTime: new Date('20200101T12:30:00.00Z')
+            name: 'Ron Weasley',
+            startTime: new Date('2020-01-01T11:30:00.00'),
+            endTime: new Date('2020-01-01T12:30:00.00')
         }
     });
 
@@ -72,9 +72,9 @@ export const seedData: () => Promise<void> = async () => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         data: {
-            name: 'Hermoine Granger',
-            startTime: new Date('20200101T13:00:00.00Z'),
-            endTime: new Date('20200101T13:30:00.00Z')
+            name: 'Harry Potter',
+            startTime: new Date('2020-01-01T13:00:00.00'),
+            endTime: new Date('2020-01-01T13:30:00.00')
         }
     });
 };
