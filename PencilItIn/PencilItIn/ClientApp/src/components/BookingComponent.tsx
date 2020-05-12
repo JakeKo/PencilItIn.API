@@ -1,28 +1,25 @@
 ﻿import * as React from 'react';
-import { BookingComponentProps, BookingComponentStyles } from '../types';
+import { Booking, BookingComponentProps, BookingComponentStyles, OfficeHours } from '../types';
 import { minutesElapsed } from '../utilities';
 
-class BookingComponent extends React.PureComponent<BookingComponentProps> {
-    private styles: BookingComponentStyles = {
-        block: (): React.CSSProperties => ({
-            position: 'absolute',
-            top: `${2 * minutesElapsed(this.props.officeHours.startTime, this.props.booking.startTime)}px`,
-            height: `${2 * minutesElapsed(this.props.booking.startTime, this.props.booking.endTime)}px`,
-            width: '95%',
-            backgroundColor: 'grey',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            color: 'white',
-            fontWeight: 800
-        })
-    };
+const styles: (officeHours: OfficeHours, booking: Booking) => BookingComponentStyles = (officeHours, booking) => ({
+    block: (): React.CSSProperties => ({
+        position: 'absolute',
+        top: `${2 * minutesElapsed(officeHours.startTime, booking.startTime)}px`,
+        height: `${2 * minutesElapsed(booking.startTime, booking.endTime)}px`,
+        width: '95%',
+        backgroundColor: 'grey',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        color: 'white',
+        fontWeight: 800
+    })
+});
 
+export default class BookingComponent extends React.PureComponent<BookingComponentProps> {
     public render: () => JSX.Element = () => {
-        const { styles } = this;
-
-        return (<div style={styles.block()}>BUSY</div>);
+        const style = styles(this.props.officeHours, this.props.booking);
+        return (<div style={style.block()}>BUSY</div>);
     };
 };
-
-export default BookingComponent;
