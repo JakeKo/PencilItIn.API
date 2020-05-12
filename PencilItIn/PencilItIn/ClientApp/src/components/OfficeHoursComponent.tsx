@@ -1,7 +1,7 @@
-﻿import axios from 'axios';
-import * as React from 'react';
-import { BookingRequestBody, OfficeHours, OfficeHoursComponentProps, OfficeHoursComponentStyles, OfficeHoursResponseBody } from '../types';
-import { minutesElapsed, responseBodyToOfficeHours } from '../utilities';
+﻿import * as React from 'react';
+import { createBooking, requestOfficeHours } from '../client';
+import { OfficeHours, OfficeHoursComponentProps, OfficeHoursComponentStyles } from '../types';
+import { minutesElapsed } from '../utilities';
 import BookingComponent from './BookingComponent';
 import CreateBookingFormComponent from './CreateBookingFormComponent';
 
@@ -60,15 +60,6 @@ const calculateDividerPositions: (officeHours: OfficeHours) => number[] = office
     return times.map(t => minutesElapsed(officeHours.startTime, t));
 };
 
-const createBooking: (officeHours: OfficeHours, booking: BookingRequestBody) => void = async (officeHours, booking) => {
-    await axios({
-        url: `api/v1/officehours/${officeHours.id}/bookings`,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json;charset=utf-8' },
-        data: booking
-    });
-}
-
 /* OFFICE HOURS COMPONENT */
 export default class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps> {
     readonly state: { officeHours: OfficeHours | undefined } = {
@@ -76,12 +67,7 @@ export default class OfficeHoursComponent extends React.PureComponent<OfficeHour
     };
 
     public componentDidMount: () => void = async () => {
-        const { data }: { data: OfficeHoursResponseBody } = await axios({
-            url: `api/v1/officehours/${this.props.officeHoursId}`,
-            method: 'GET'
-        });
-
-        this.setState({ officeHours: responseBodyToOfficeHours(data) });
+        this.setState({ officeHours: await requestOfficeHours(this.props.officeHoursId) });
     }
 
     public render: () => JSX.Element = () => {
