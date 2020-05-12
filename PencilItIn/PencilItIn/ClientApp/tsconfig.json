@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ES6",
     "allowJs": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -12,11 +12,12 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "preserve",
+    "skipLibCheck": false,
     "lib": [
-      "es2015",
-      "dom"
-    ],
-    "skipLibCheck": false
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ]
   },
   "include": [
     "src"

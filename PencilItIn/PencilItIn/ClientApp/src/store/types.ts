@@ -35,7 +35,8 @@ export type OfficeHoursResponseBody = {
 
 export type OfficeHoursActionCreators = {
     requestOfficeHours: (officeHoursId: string) => AppThunkAction<OfficeHoursAction>,
-    createBooking: (officeHoursId: string, booking: BookingRequestBody) => AppThunkAction<OfficeHoursAction>
+    createBooking: (officeHoursId: string, booking: BookingRequestBody) => AppThunkAction<OfficeHoursAction>,
+    requestBooking: (officeHoursId: string, bookingId: string) => AppThunkAction<OfficeHoursAction>
 };
 
 export type RequestOfficeHoursAction = {
@@ -50,21 +51,25 @@ export type ReceiveOfficeHoursAction = {
 
 export type CreateBookingAction = {
     type: 'CREATE_BOOKING',
+    officeHoursId: string,
     booking: BookingRequestBody
 };
 
 export type BookingCreatedAction = {
     type: 'BOOKING_CREATED',
+    officeHoursId: string,
     bookingId: string
 };
 
 export type RequestBookingAction = {
     type: 'REQUEST_BOOKING',
+    officeHoursId: string,
     bookingId: string
 };
 
 export type ReceiveBookingAction = {
     type: 'RECEIVE_BOOKING',
+    officeHoursId: string,
     booking: Booking
 };
 

@@ -17,22 +17,22 @@ type OfficeHoursComponentStyles = {
 };
 class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps> {
     private styles: OfficeHoursComponentStyles = {
-        page: (): React.CSSProperties => ({
+        page: () => ({
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'
         }),
-        container: (): React.CSSProperties => ({
+        container: () => ({
             width: '500px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center'
         }),
-        heading: (): React.CSSProperties => ({
+        heading: () => ({
             fontFamily: 'sans-serif',
             fontSize: '32px'
         }),
-        display: (): React.CSSProperties => ({
+        display: () => ({
             height: `${2 * minutesElapsed(this.props.officeHours!.startTime, this.props.officeHours!.endTime)}px`,
             position: 'relative',
             width: '100%',
@@ -44,7 +44,7 @@ class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps
             boxSizing: 'border-box',
             borderRadius: '3px'
         }),
-        divider: (position: number): React.CSSProperties => ({
+        divider: position => ({
             borderTop: '1px dashed grey',
             width: '100%',
             position: 'absolute',
@@ -52,8 +52,8 @@ class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps
         })
     };
 
-    private dividerPositions: () => number[] = (): number[] => {
-        const startTime: Date = new Date(
+    private dividerPositions: () => number[] = () => {
+        const startTime = new Date(
             this.props.officeHours!.startTime.getFullYear(),
             this.props.officeHours!.startTime.getMonth(),
             this.props.officeHours!.startTime.getDate(),
@@ -61,14 +61,14 @@ class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps
         );
 
         const times: Date[] = [];
-        for (let t: Date = startTime; t < this.props.officeHours!.endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
+        for (let t = startTime; t < this.props.officeHours!.endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
             times.push(t);
         }
 
-        return times.map((t: Date): number => minutesElapsed(this.props.officeHours!.startTime, t));
+        return times.map(t => minutesElapsed(this.props.officeHours!.startTime, t));
     };
 
-    public render: () => JSX.Element = (): JSX.Element => (
+    public render: () => JSX.Element = () => (
         <div style={this.styles.page()}>
             {this.props.officeHours && <div style={this.styles.container()}>
                 <div style={this.styles.heading()}>{this.props.officeHours.title}</div>

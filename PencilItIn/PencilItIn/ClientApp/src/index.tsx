@@ -26,6 +26,8 @@ seedData().then(async (): Promise<void> => {
         }
     });
 
+    console.log(store.getState());
+
     ReactDOM.render(
         <Provider store={store}>
             <ConnectedRouter history={history}>
