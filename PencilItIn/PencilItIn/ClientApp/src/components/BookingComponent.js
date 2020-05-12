@@ -22,7 +22,7 @@ var BookingComponent = /** @class */ (function (_super) {
         _this.styles = {
             block: function () { return ({
                 position: 'absolute',
-                top: 2 * utilities_1.minutesElapsed(_this.props.officeHoursStartTime, _this.props.booking.startTime) + "px",
+                top: 2 * utilities_1.minutesElapsed(_this.props.officeHours.startTime, _this.props.booking.startTime) + "px",
                 height: 2 * utilities_1.minutesElapsed(_this.props.booking.startTime, _this.props.booking.endTime) + "px",
                 width: '95%',
                 backgroundColor: 'grey',
@@ -33,7 +33,10 @@ var BookingComponent = /** @class */ (function (_super) {
                 fontWeight: 800
             }); }
         };
-        _this.render = function () { return (React.createElement("div", { style: _this.styles.block() }, "BUSY")); };
+        _this.render = function () {
+            var styles = _this.styles;
+            return (React.createElement("div", { style: styles.block() }, "BUSY"));
+        };
         return _this;
     }
     return BookingComponent;

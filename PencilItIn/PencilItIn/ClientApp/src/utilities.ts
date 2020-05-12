@@ -30,8 +30,8 @@ export const seedData = async () => {
             'Content-Type': 'application/json;charset=utf-8'
         },
         data: {
-            startTime: new Date('2020-01-01T10:30:00.00'),
-            endTime: new Date('2020-01-01T14:30:00.00'),
+            startTime: new Date('2020-01-01T10:30:00.000Z'),
+            endTime: new Date('2020-01-01T14:30:00.000Z'),
             location: 'Hogwart\'s School of Witchcraft and Wizardry',
             hostName: 'Severus Snape',
             title: 'DAGA Office Hours'
@@ -47,8 +47,8 @@ export const seedData = async () => {
         },
         data: {
             name: 'Hermoine Granger',
-            startTime: new Date('2020-01-01T11:00:00.00'),
-            endTime: new Date('2020-01-01T11:30:00.00')
+            startTime: new Date('2020-01-01T11:00:00.000Z'),
+            endTime: new Date('2020-01-01T11:30:00.000Z')
         }
     });
 
@@ -60,8 +60,8 @@ export const seedData = async () => {
         },
         data: {
             name: 'Ron Weasley',
-            startTime: new Date('2020-01-01T11:30:00.00'),
-            endTime: new Date('2020-01-01T12:30:00.00')
+            startTime: new Date('2020-01-01T11:30:00.000Z'),
+            endTime: new Date('2020-01-01T12:30:00.000Z')
         }
     });
 
@@ -73,8 +73,8 @@ export const seedData = async () => {
         },
         data: {
             name: 'Harry Potter',
-            startTime: new Date('2020-01-01T13:00:00.00'),
-            endTime: new Date('2020-01-01T13:30:00.00')
+            startTime: new Date('2020-01-01T13:00:00.000Z'),
+            endTime: new Date('2020-01-01T13:30:00.000Z')
         }
     });
 };

@@ -59,26 +59,31 @@ var OfficeHoursComponent = /** @class */ (function (_super) {
             }); }
         };
         _this.dividerPositions = function () {
-            var startTime = new Date(_this.props.officeHours.startTime.getFullYear(), _this.props.officeHours.startTime.getMonth(), _this.props.officeHours.startTime.getDate(), _this.props.officeHours.startTime.getHours() + 1);
+            var officeHours = _this.props.officeHours;
+            var startTime = new Date(officeHours.startTime.getFullYear(), officeHours.startTime.getMonth(), officeHours.startTime.getDate(), officeHours.startTime.getHours() + 1);
+            // Assemble a list of times at which to draw a light divider
+            // Dividers are drawn at the hour
             var times = [];
-            for (var t = startTime; t < _this.props.officeHours.endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
+            for (var t = startTime; t < officeHours.endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
                 times.push(t);
             }
-            return times.map(function (t) { return utilities_1.minutesElapsed(_this.props.officeHours.startTime, t); });
+            // Calculate the minutes elapsed at each divider time
+            return times.map(function (t) { return utilities_1.minutesElapsed(officeHours.startTime, t); });
         };
-        _this.render = function () { return (React.createElement("div", { style: _this.styles.page() }, _this.props.officeHours && React.createElement("div", { style: _this.styles.container() },
-            React.createElement("div", { style: _this.styles.heading() }, _this.props.officeHours.title),
-            React.createElement("div", null,
-                _this.props.officeHours.hostName,
-                " (",
-                _this.props.officeHours.location,
-                ")"),
-            React.createElement(CreateBookingFormComponent_1.default, { officeHours: _this.props.officeHours, createBooking: _this.props.createBooking }),
-            React.createElement("div", { style: _this.styles.display() },
-                _this.dividerPositions().map(function (position) { return React.createElement("div", { key: Math.random(), style: _this.styles.divider(position) }); }),
-                _this.props.officeHours.bookings.map(function (booking) {
-                    return React.createElement(BookingComponent_1.default, { key: booking.id, officeHoursStartTime: _this.props.officeHours.startTime, booking: booking });
-                }))))); };
+        _this.render = function () {
+            var _a = _this, styles = _a.styles, _b = _a.props, officeHours = _b.officeHours, createBooking = _b.createBooking;
+            return (React.createElement("div", { style: styles.page() }, officeHours && React.createElement("div", { style: styles.container() },
+                React.createElement("div", { style: styles.heading() }, officeHours.title),
+                React.createElement("div", null,
+                    officeHours.hostName,
+                    " (",
+                    officeHours.location,
+                    ")"),
+                React.createElement(CreateBookingFormComponent_1.default, { officeHours: officeHours, createBooking: createBooking }),
+                React.createElement("div", { style: styles.display() },
+                    _this.dividerPositions().map(function (position) { return React.createElement("div", { key: Math.random(), style: styles.divider(position) }); }),
+                    officeHours.bookings.map(function (booking) { return React.createElement(BookingComponent_1.default, { key: booking.id, officeHours: officeHours, booking: booking }); })))));
+        };
         return _this;
     }
     return OfficeHoursComponent;

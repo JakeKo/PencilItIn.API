@@ -14,7 +14,7 @@ import { seedData, responseBodyToOfficeHours } from './utilities';
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
 const history = createBrowserHistory({ basename: baseUrl });
 
-seedData().then(async (): Promise<void> => {
+seedData().then(async () => {
     // Get the application-wide store instance, prepopulating with state from the server where available.
     const store = configureStore(history, {
         officeHours: {

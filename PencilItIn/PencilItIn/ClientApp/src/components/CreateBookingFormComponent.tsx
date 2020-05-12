@@ -1,16 +1,14 @@
 ﻿import * as React from 'react';
-import { BookingRequestBody, OfficeHours } from '../store/types';
+import { CreateBookingFormComponentProps, CreateBookingFormComponentStyles } from '../store/types';
 
-type CreateBookingFormComponentProps = { officeHours: OfficeHours, createBooking: (officeHoursId: string, booking: BookingRequestBody) => void };
-type CreateBookingFormComponentStyles = {};
 class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
     private styles: CreateBookingFormComponentStyles = {};
 
-    private createBooking: (event: React.FormEvent) => void = (event: React.FormEvent): void => {
+    private createBooking: (event: React.FormEvent) => void = event => {
         event.preventDefault();
 
         // Treat the form element as an array of input elements to get key-value pairs
-        const [nameField, startTimeField, endTimeField]: HTMLInputElement[] = (event.target as unknown as HTMLInputElement[]);
+        const [nameField, startTimeField, endTimeField] = (event.target as unknown as HTMLInputElement[]);
 
         const startTime: Date = new Date(this.props.officeHours.startTime.valueOf());
         startTime.setUTCHours(Number(startTimeField.value.split(':')[0]));
@@ -27,7 +25,7 @@ class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormCo
         });
     };
 
-    public render: () => JSX.Element = (): JSX.Element => (
+    public render: () => JSX.Element = () => (
         <form onSubmit={this.createBooking}>
             <label htmlFor='name'>Name</label>
             <input name='name' type='text' placeholder='Name'></input>

@@ -1,4 +1,6 @@
-﻿/* Application Types */
+﻿import { RouteComponentProps } from 'react-router';
+
+/* Application Types */
 export type ApplicationState = {
     officeHours: OfficeHoursState | undefined;
 };
@@ -97,3 +99,30 @@ export type BookingRequestBody = {
     startTime: Date,
     endTime: Date
 };
+
+/* COMPONENT TYPES */
+export type OfficeHoursComponentProps = OfficeHoursState & OfficeHoursActionCreators & RouteComponentProps<{}>;
+
+export type OfficeHoursComponentStyles = {
+    page: () => React.CSSProperties,
+    container: () => React.CSSProperties,
+    heading: () => React.CSSProperties,
+    display: () => React.CSSProperties,
+    divider: (position: number) => React.CSSProperties
+};
+
+export type BookingComponentProps = {
+    booking: Booking,
+    officeHours: OfficeHours
+};
+
+export type BookingComponentStyles = {
+    block: () => React.CSSProperties
+};
+
+export type CreateBookingFormComponentProps = {
+    officeHours: OfficeHours,
+    createBooking: (officeHoursId: string, booking: BookingRequestBody) => void
+};
+
+export type CreateBookingFormComponentStyles = {};
