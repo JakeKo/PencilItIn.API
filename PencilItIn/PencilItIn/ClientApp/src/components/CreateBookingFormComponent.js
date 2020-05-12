@@ -20,16 +20,17 @@ var CreateBookingFormComponent = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.styles = {};
         _this.createBooking = function (event) {
+            var _a = _this.props, officeHours = _a.officeHours, createBooking = _a.createBooking;
             event.preventDefault();
             // Treat the form element as an array of input elements to get key-value pairs
-            var _a = event.target, nameField = _a[0], startTimeField = _a[1], endTimeField = _a[2];
-            var startTime = new Date(_this.props.officeHours.startTime.valueOf());
+            var _b = event.target, nameField = _b[0], startTimeField = _b[1], endTimeField = _b[2];
+            var startTime = new Date(officeHours.startTime.valueOf());
             startTime.setUTCHours(Number(startTimeField.value.split(':')[0]));
             startTime.setUTCMinutes(Number(startTimeField.value.split(':')[1]));
-            var endTime = new Date(_this.props.officeHours.endTime.valueOf());
+            var endTime = new Date(officeHours.endTime.valueOf());
             endTime.setUTCHours(Number(endTimeField.value.split(':')[0]));
             endTime.setUTCMinutes(Number(endTimeField.value.split(':')[1]));
-            _this.props.createBooking(_this.props.officeHours.id, {
+            createBooking(officeHours.id, {
                 name: nameField.value,
                 startTime: startTime,
                 endTime: endTime

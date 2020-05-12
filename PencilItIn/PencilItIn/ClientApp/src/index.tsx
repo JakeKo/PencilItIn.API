@@ -8,14 +8,14 @@ import { Provider } from 'react-redux';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
-import { seedData, responseBodyToOfficeHours } from './utilities';
+import { responseBodyToOfficeHours } from './utilities';
 
 // Create browser history to use in the Redux store
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href') as string;
 const history = createBrowserHistory({ basename: baseUrl });
 
-seedData().then(async () => {
-    // Get the application-wide store instance, prepopulating with state from the server where available.
+// Get the application-wide store instance, prepopulating with state from the server where available.
+(async () => {
     const store = configureStore(history, {
         officeHours: {
             isLoading: true,
@@ -36,5 +36,4 @@ seedData().then(async () => {
     );
 
     registerServiceWorker();
-});
-
+})();
