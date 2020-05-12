@@ -1,10 +1,8 @@
 ﻿import * as React from 'react';
-import { CreateBookingFormComponentProps, CreateBookingFormComponentStyles } from '../types';
+import { CreateBookingFormComponentProps } from '../types';
 
-class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
-    private styles: CreateBookingFormComponentStyles = {};
-
-    private createBooking: (event: React.FormEvent) => void = event => {
+export default class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
+    private createBookingHandler: (event: React.FormEvent) => void = event => {
         const { officeHours, createBooking } = this.props;
         event.preventDefault();
 
@@ -23,7 +21,7 @@ class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormCo
     };
 
     public render: () => JSX.Element = () => (
-        <form onSubmit={this.createBooking}>
+        <form onSubmit={this.createBookingHandler}>
             <label htmlFor='name'>Name</label>
             <input name='name' type='text' placeholder='Name'></input>
 
@@ -37,5 +35,3 @@ class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormCo
         </form>
     );
 };
-
-export default CreateBookingFormComponent;
