@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { BookingComponentProps, BookingComponentStyles } from '../store/types';
+import { BookingComponentProps, BookingComponentStyles } from '../types';
 import { minutesElapsed } from '../utilities';
 
 class BookingComponent extends React.PureComponent<BookingComponentProps> {

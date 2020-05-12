@@ -1,6 +1,4 @@
-﻿import { RouteComponentProps } from 'react-router';
-
-/* Application Types */
+﻿/* Application Types */
 export type ApplicationState = {
     officeHours: OfficeHoursState | undefined;
 };
@@ -9,7 +7,7 @@ export type AppThunkAction<T> = (dispatch: (action: T) => void, getState: () => 
 
 /* Office Hour Types */
 export type OfficeHoursState = {
-    officeHours: OfficeHours | undefined,
+    officeHoursId: string,
     isLoading: boolean
 };
 
@@ -101,7 +99,10 @@ export type BookingRequestBody = {
 };
 
 /* COMPONENT TYPES */
-export type OfficeHoursComponentProps = OfficeHoursState & OfficeHoursActionCreators & RouteComponentProps<{}>;
+//export type OfficeHoursComponentProps = OfficeHoursState & OfficeHoursActionCreators & RouteComponentProps<{}>;
+export type OfficeHoursComponentProps = {
+    officeHoursId: string
+};
 
 export type OfficeHoursComponentStyles = {
     page: () => React.CSSProperties,
@@ -122,7 +123,7 @@ export type BookingComponentStyles = {
 
 export type CreateBookingFormComponentProps = {
     officeHours: OfficeHours,
-    createBooking: (officeHoursId: string, booking: BookingRequestBody) => void
+    createBooking: (booking: BookingRequestBody) => void
 };
 
 export type CreateBookingFormComponentStyles = {};

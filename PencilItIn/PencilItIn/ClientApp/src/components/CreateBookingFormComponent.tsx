@@ -1,5 +1,5 @@
 ﻿import * as React from 'react';
-import { CreateBookingFormComponentProps, CreateBookingFormComponentStyles } from '../store/types';
+import { CreateBookingFormComponentProps, CreateBookingFormComponentStyles } from '../types';
 
 class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
     private styles: CreateBookingFormComponentStyles = {};
@@ -19,11 +19,7 @@ class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormCo
         endTime.setUTCHours(Number(endTimeField.value.split(':')[0]));
         endTime.setUTCMinutes(Number(endTimeField.value.split(':')[1]));
 
-        createBooking(officeHours.id, {
-            name: nameField.value,
-            startTime,
-            endTime
-        });
+        createBooking({ name: nameField.value, startTime, endTime });
     };
 
     public render: () => JSX.Element = () => (
