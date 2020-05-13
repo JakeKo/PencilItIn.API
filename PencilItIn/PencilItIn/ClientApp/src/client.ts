@@ -3,12 +3,11 @@ import { BookingRequestBody, OfficeHours, OfficeHoursResponseBody } from "./type
 import { responseBodyToOfficeHours } from './utilities';
 
 export const requestAllOfficeHours: () => Promise<OfficeHours[]> = async () => {
-    console.log('A');
     const response: AxiosResponse<OfficeHoursResponseBody[]> = await axios({
         url: 'api/v1/officehours',
         method: 'GET'
     });
-    console.log('B');
+
     return response.data.map(datum => responseBodyToOfficeHours(datum));
 };
 

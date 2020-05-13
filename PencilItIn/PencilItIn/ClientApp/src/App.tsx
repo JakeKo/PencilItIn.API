@@ -11,16 +11,7 @@ export default class App extends React.PureComponent {
     }
 
     public componentDidMount: () => void = async () => {
-        console.log('1');
-
-        try {
-            const officeHours = await requestAllOfficeHours();
-            console.log('2');
-            this.setState({ officeHours });
-            console.log('3');
-        } catch (exception) {
-            console.error(exception);
-        }
+        this.setState({ officeHours: await requestAllOfficeHours() });
     }
 
     public render: () => JSX.Element = () => {
