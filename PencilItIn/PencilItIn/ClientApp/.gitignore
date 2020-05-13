@@ -11,7 +11,10 @@
 
 # source map
 /src/*.js
+/src/components/*.js
+
 /src/*.js.map
+/src/components/*.js.map
 
 # misc
 .DS_Store
