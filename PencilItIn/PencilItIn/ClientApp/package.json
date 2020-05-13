@@ -17,18 +17,15 @@
     "@types/react-dom": "16.0.11",
     "@types/react-router-dom": "4.3.1",
     "cross-env": "5.2.0",
-    "eslint": "^5.16.0",
-    "typescript-eslint-parser": "21.0.2"
+    "eslint-plugin-flowtype": "^4.7.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.20.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "cross-env CI=true react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "lint": "eslint ./src/**/*.ts ./src/**/*.tsx"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "test": "cross-env CI=true react-scripts test --env=jsdom"
   },
   "browserslist": [
     ">0.2%",
