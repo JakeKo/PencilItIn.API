@@ -69,3 +69,9 @@ export type CreateBookingFormComponentProps = {
 };
 
 export type CreateBookingFormComponentStyles = {};
+
+export type LandingComponentProps = {
+    officeHours: OfficeHours[]
+};
+
+export type LandingComponentStyles = {};
