@@ -17,9 +17,11 @@ const styles: (officeHours: OfficeHours, booking: Booking) => BookingComponentSt
     })
 });
 
-export default class BookingComponent extends React.PureComponent<BookingComponentProps> {
+class BookingComponent extends React.PureComponent<BookingComponentProps> {
     public render: () => JSX.Element = () => {
         const style = styles(this.props.officeHours, this.props.booking);
         return (<div style={style.block()}>BUSY</div>);
     };
 };
+
+export default BookingComponent;

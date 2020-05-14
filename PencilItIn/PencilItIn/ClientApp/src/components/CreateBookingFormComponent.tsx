@@ -1,7 +1,7 @@
 ﻿import * as React from 'react';
 import { CreateBookingFormComponentProps } from '../types';
 
-export default class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
+class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
     private createBookingHandler: (event: React.FormEvent) => void = event => {
         const { officeHours, createBooking } = this.props;
         event.preventDefault();
@@ -35,3 +35,5 @@ export default class CreateBookingFormComponent extends React.PureComponent<Crea
         </form>
     );
 };
+
+export default CreateBookingFormComponent;
