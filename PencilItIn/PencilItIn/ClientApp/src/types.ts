@@ -68,7 +68,15 @@ export type CreateBookingFormComponentProps = {
     createBooking: (officeHoursId: string, booking: BookingRequestBody) => void;
 };
 
-export type CreateBookingFormComponentStyles = {};
+export type CreateBookingFormComponentStyles = {
+    form: () => React.CSSProperties;
+    timeFields: () => React.CSSProperties;
+    fieldWrapper: () => React.CSSProperties;
+    timeFieldWrapper: () => React.CSSProperties;
+    fieldLabel: () => React.CSSProperties;
+    field: () => React.CSSProperties;
+    formButton: () => React.CSSProperties;
+};
 
 export type LandingComponentProps = {
     officeHours: OfficeHours[];

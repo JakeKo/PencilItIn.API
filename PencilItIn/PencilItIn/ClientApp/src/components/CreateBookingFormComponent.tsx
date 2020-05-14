@@ -1,5 +1,45 @@
 ﻿import * as React from 'react';
-import { CreateBookingFormComponentProps } from '../types';
+import { CreateBookingFormComponentProps, CreateBookingFormComponentStyles } from '../types';
+
+const styles: () => CreateBookingFormComponentStyles = () => ({
+    form: () => ({
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%'
+    }),
+    fieldWrapper: () => ({
+        display: 'flex',
+        flexDirection: 'column',
+        fontFamily: 'sans-serif',
+        margin: '8px'
+    }),
+    timeFields: () => ({
+        display: 'flex',
+        width: '100%'
+    }),
+    timeFieldWrapper: () => ({
+        width: '50%'
+    }),
+    fieldLabel: () => ({
+        fontSize: '12px',
+        fontWeight: 'bold',
+    }),
+    field: () => ({
+        border: '1px solid black',
+        padding: '12px',
+        boxSizing: 'border-box',
+        fontSize: '16px'
+    }),
+    formButton: () => ({
+        margin: '8px 8px 16px 8px',
+        padding: '16px',
+        background: 'black',
+        border: 'none',
+        color: 'white',
+        fontSize: '16px',
+        fontWeight: 'bold'
+    })
+});
 
 class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
     private createBookingHandler: (event: React.FormEvent) => void = event => {
@@ -20,20 +60,32 @@ class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormCo
         createBooking(this.props.officeHours.id, { name: nameField.value, startTime, endTime });
     };
 
-    public render: () => JSX.Element = () => (
-        <form onSubmit={this.createBookingHandler}>
-            <label htmlFor='name'>Name</label>
-            <input name='name' type='text' placeholder='Name'></input>
+    public render: () => JSX.Element = () => {
+        const style = styles();
 
-            <label htmlFor='startTime'>Start Time</label>
-            <input name='startTime' type='time' placeholder='Start Time'></input>
+        return (
+            <form onSubmit={this.createBookingHandler} style={style.form()}>
+                <div style={style.fieldWrapper()}>
+                    <label htmlFor='name' style={style.fieldLabel()}>NAME</label>
+                    <input name='name' type='text' placeholder='Name' style={style.field()}></input>
+                </div>
 
-            <label htmlFor='endTime'>End Time</label>
-            <input name='endTime' type='time' placeholder='End Time'></input>
+                <div style={style.timeFields()}>
+                    <div style={{ ...style.fieldWrapper(), ...style.timeFieldWrapper() }}>
+                        <label htmlFor='startTime' style={style.fieldLabel()}>APPOINTMENT START</label>
+                        <input name='startTime' type='time' style={style.field()}></input>
+                    </div>
 
-            <button type='submit'>Submit</button>
-        </form>
-    );
+                    <div style={{ ...style.fieldWrapper(), ...style.timeFieldWrapper() }}>
+                        <label htmlFor='endTime' style={style.fieldLabel()}>APPOINTMENT END</label>
+                        <input name='endTime' type='time' style={style.field()}></input>
+                    </div>
+                </div>
+
+                <button type='submit' style={style.formButton()}>SUBMIT</button>
+            </form>
+        );
+    }
 };
 
 export default CreateBookingFormComponent;
