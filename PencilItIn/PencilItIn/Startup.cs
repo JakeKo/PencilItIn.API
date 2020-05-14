@@ -113,6 +113,26 @@ namespace PencilItIn
                 Id = idProvider.ProvideId()
             });
 
+            officeHoursId = idProvider.ProvideId();
+            eventLog.RecordEvent(EventCode.CreateOfficeHours, new CreateOfficeHoursEventPayload
+            {
+                StartTime = new DateTime(2020, 01, 01, 12, 00, 00),
+                EndTime = new DateTime(2020, 01, 01, 14, 00, 00),
+                HostName = "Albus Dumbledore",
+                Location = "Hogwart's School of Witchcraft and Wizardry",
+                Title = "Headmaster Office Hours",
+                Id = officeHoursId
+            });
+
+            eventLog.RecordEvent(EventCode.CreateBooking, new CreateBookingEventPayload
+            {
+                OfficeHoursId = officeHoursId,
+                Name = "Hermoine Granger",
+                StartTime = new DateTime(2020, 01, 01, 12, 00, 00),
+                EndTime = new DateTime(2020, 01, 01, 12, 30, 00),
+                Id = idProvider.ProvideId()
+            });
+
             return eventLog;
         }
     }
