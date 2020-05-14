@@ -61,7 +61,7 @@ const calculateDividerPositions: (officeHours: OfficeHours) => number[] = office
 };
 
 /* OFFICE HOURS COMPONENT */
-export default class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps> {
+class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps> {
     readonly state: { officeHours: OfficeHours | undefined } = {
         officeHours: undefined
     };
@@ -94,3 +94,5 @@ export default class OfficeHoursComponent extends React.PureComponent<OfficeHour
         </div>);
     };
 }
+
+export default OfficeHoursComponent;

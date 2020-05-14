@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 import { requestAllOfficeHours } from './client';
 import LandingComponent from './components/LandingComponent';
 import OfficeHoursComponent from './components/OfficeHoursComponent';
 import { OfficeHours } from './types';
 
-export default class App extends React.PureComponent {
+class App extends React.PureComponent<RouteComponentProps> {
     readonly state: { officeHours: OfficeHours[] } = {
         officeHours: []
     }
@@ -15,9 +15,15 @@ export default class App extends React.PureComponent {
     }
 
     public render: () => JSX.Element = () => {
-        return (<Switch>
-            <Route path='/' render={() => <LandingComponent officeHours={this.state.officeHours} />} />
-            <Route path='/office-hours/:officeHoursId' render={props => <OfficeHoursComponent officeHoursId={props.match.params.officeHoursId} />} />
-        </Switch>);
+        return (
+            <React.Fragment>
+                <Switch>
+                    <Route exact path='/' render={() => <LandingComponent officeHours={this.state.officeHours} />} />
+                    <Route path='/office-hours/:officeHoursId' render={props => <OfficeHoursComponent officeHoursId={props.match.params.officeHoursId} />} />
+                </Switch>
+            </React.Fragment>
+        );
     }
 }
+
+export default withRouter(App)
