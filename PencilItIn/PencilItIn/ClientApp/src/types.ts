@@ -70,9 +70,9 @@ export type CreateBookingFormComponentProps = {
 
 export type CreateBookingFormComponentStyles = {
     form: () => React.CSSProperties;
-    timeFields: () => React.CSSProperties;
     fieldWrapper: () => React.CSSProperties;
-    timeFieldWrapper: () => React.CSSProperties;
+    dividedFields: () => React.CSSProperties;
+    dividedFieldWrapper: () => React.CSSProperties;
     fieldLabel: () => React.CSSProperties;
     field: () => React.CSSProperties;
     formButton: () => React.CSSProperties;

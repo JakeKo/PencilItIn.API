@@ -10,14 +10,14 @@ const styles: () => CreateBookingFormComponentStyles = () => ({
     fieldWrapper: () => ({
         display: 'flex',
         flexDirection: 'column',
-        fontFamily: 'sans-serif',
+        fontFamily: 'monospace',
         margin: '8px'
     }),
-    timeFields: () => ({
+    dividedFields: () => ({
         display: 'flex',
         width: '100%'
     }),
-    timeFieldWrapper: () => ({
+    dividedFieldWrapper: () => ({
         width: '50%'
     }),
     fieldLabel: () => ({
@@ -37,47 +37,60 @@ const styles: () => CreateBookingFormComponentStyles = () => ({
         border: 'none',
         color: 'white',
         fontSize: '16px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontFamily: 'monospace',
+        cursor: 'pointer'
     })
 });
 
-class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
-    private createBookingHandler: (event: React.FormEvent) => void = event => {
-        const { officeHours, createBooking } = this.props;
+const createBookingHandler: ({ officeHours, createBooking }: CreateBookingFormComponentProps) => (event: React.FormEvent) => void = ({ officeHours, createBooking }) => {
+    return event => {
         event.preventDefault();
 
-        // Treat the form element as an array of input elements to get key-value pairs
-        const [nameField, startTimeField, endTimeField] = (event.target as unknown as HTMLInputElement[]);
+        const form = event.target as HTMLFormElement;
+        const [name, startDate, endDate, startTime, endTime] = form.elements as unknown as HTMLInputElement[];
 
-        const startTime: Date = new Date(officeHours.startTime.valueOf());
-        startTime.setUTCHours(Number(startTimeField.value.split(':')[0]));
-        startTime.setUTCMinutes(Number(startTimeField.value.split(':')[1]));
-
-        const endTime: Date = new Date(officeHours.endTime.valueOf());
-        endTime.setUTCHours(Number(endTimeField.value.split(':')[0]));
-        endTime.setUTCMinutes(Number(endTimeField.value.split(':')[1]));
-
-        createBooking(this.props.officeHours.id, { name: nameField.value, startTime, endTime });
+        createBooking(officeHours.id, {
+            name: name.value,
+            startTime: new Date(`${startDate.value}T${startTime.value}`),
+            endTime: new Date(`${endDate.value}T${endTime.value}`)
+        });
     };
+};
 
+class CreateBookingFormComponent extends React.PureComponent<CreateBookingFormComponentProps> {
     public render: () => JSX.Element = () => {
         const style = styles();
+        const startDate = this.props.officeHours.startTime.toISOString().split('T')[0];
+        const endDate = this.props.officeHours.endTime.toISOString().split('T')[0];
 
         return (
-            <form onSubmit={this.createBookingHandler} style={style.form()}>
+            <form onSubmit={createBookingHandler(this.props)} style={style.form()}>
                 <div style={style.fieldWrapper()}>
                     <label htmlFor='name' style={style.fieldLabel()}>NAME</label>
                     <input name='name' type='text' placeholder='Name' style={style.field()}></input>
                 </div>
 
-                <div style={style.timeFields()}>
-                    <div style={{ ...style.fieldWrapper(), ...style.timeFieldWrapper() }}>
-                        <label htmlFor='startTime' style={style.fieldLabel()}>APPOINTMENT START</label>
+                <div style={style.dividedFields()}>
+                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
+                        <label htmlFor='startDate' style={style.fieldLabel()}>START DATE</label>
+                        <input name='startDate' type='date' style={style.field()} defaultValue={startDate}></input>
+                    </div>
+
+                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
+                        <label htmlFor='endDate' style={style.fieldLabel()}>END DATE</label>
+                        <input name='endDate' type='date' style={style.field()} defaultValue={endDate}></input>
+                    </div>
+                </div>
+
+                <div style={style.dividedFields()}>
+                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
+                        <label htmlFor='startTime' style={style.fieldLabel()}>START TIME</label>
                         <input name='startTime' type='time' style={style.field()}></input>
                     </div>
 
-                    <div style={{ ...style.fieldWrapper(), ...style.timeFieldWrapper() }}>
-                        <label htmlFor='endTime' style={style.fieldLabel()}>APPOINTMENT END</label>
+                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
+                        <label htmlFor='endTime' style={style.fieldLabel()}>END TIME</label>
                         <input name='endTime' type='time' style={style.field()}></input>
                     </div>
                 </div>
