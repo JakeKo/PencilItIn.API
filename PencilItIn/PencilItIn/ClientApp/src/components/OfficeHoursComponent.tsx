@@ -4,6 +4,7 @@ import { OfficeHours, OfficeHoursComponentProps, OfficeHoursComponentStyles } fr
 import { minutesElapsed } from '../utilities';
 import BookingComponent from './BookingComponent';
 import CreateBookingFormComponent from './CreateBookingFormComponent';
+import DividerComponent from './DividerComponent';
 
 const styles: (officeHours: OfficeHours) => OfficeHoursComponentStyles = officeHours => ({
     page: () => ({
@@ -32,32 +33,19 @@ const styles: (officeHours: OfficeHours) => OfficeHoursComponentStyles = officeH
         border: '1px solid grey',
         boxSizing: 'border-box',
         borderRadius: '3px'
-    }),
-    divider: position => ({
-        borderTop: '1px dashed grey',
-        width: '100%',
-        position: 'absolute',
-        top: `${2 * position}px`
     })
 });
 
-const calculateDividerPositions: (officeHours: OfficeHours) => number[] = officeHours => {
-    const startTime = new Date(
-        officeHours.startTime.getFullYear(),
-        officeHours.startTime.getMonth(),
-        officeHours.startTime.getDate(),
-        officeHours.startTime.getHours() + 1
-    );
-
+const getDividerData: (officeHours: OfficeHours) => Date[] = officeHours => {
     // Assemble a list of times at which to draw a light divider
     // Dividers are drawn at the hour
     const times: Date[] = [];
-    for (let t = startTime; t < officeHours.endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
+    for (let t = officeHours.startTime; t <= officeHours.endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
         times.push(t);
     }
 
     // Calculate the minutes elapsed at each divider time
-    return times.map(t => minutesElapsed(officeHours.startTime, t));
+    return times;
 };
 
 /* OFFICE HOURS COMPONENT */
@@ -75,23 +63,25 @@ class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps
             return (<div />);
         }
 
-        const officeHours = this.state.officeHours!;
-        const style = styles(this.state.officeHours);
-        const dividers = calculateDividerPositions(this.state.officeHours);
+        const officeHours = this.state.officeHours;
+        const style = styles(officeHours);
+        const dividers = getDividerData(officeHours);
 
-        return (<div style={style.page()}>
-            <div style={style.container()}>
-                <div style={style.heading()}>{officeHours.title}</div>
-                <div>{officeHours.hostName} ({officeHours.location})</div>
+        return (
+            <div style={style.page()}>
+                <div style={style.container()}>
+                    <div style={style.heading()}>{officeHours.title}</div>
+                    <div>{officeHours.hostName} ({officeHours.location})</div>
 
-                <CreateBookingFormComponent officeHours={officeHours} createBooking={createBooking} />
+                    <CreateBookingFormComponent officeHours={officeHours} createBooking={createBooking} />
 
-                <div style={style.display()}>
-                    {dividers.map(position => <div key={Math.random()} style={style.divider(position)}></div>)}
-                    {officeHours.bookings.map(booking => <BookingComponent key={booking.id} officeHours={officeHours} booking={booking} />)}
+                    <div style={style.display()}>
+                        {dividers.map(time => <DividerComponent key={Math.random()} officeHoursStartTime={officeHours.startTime} time={time} />)}
+                        {officeHours.bookings.map(booking => <BookingComponent key={booking.id} officeHours={officeHours} booking={booking} />)}
+                    </div>
                 </div>
             </div>
-        </div>);
+        );
     };
 }
 

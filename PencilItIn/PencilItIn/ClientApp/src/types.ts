@@ -51,7 +51,6 @@ export type OfficeHoursComponentStyles = {
     container: () => React.CSSProperties;
     heading: () => React.CSSProperties;
     display: () => React.CSSProperties;
-    divider: (position: number) => React.CSSProperties;
 };
 
 export type BookingComponentProps = {
@@ -83,3 +82,13 @@ export type LandingComponentProps = {
 };
 
 export type LandingComponentStyles = {};
+
+export type DividerComponentProps = {
+    officeHoursStartTime: Date;
+    time: Date;
+};
+
+export type DividerComponentStyles = {
+    line: (timeOffset: number) => React.CSSProperties;
+    tag: (timeOffset: number) => React.CSSProperties;
+};
