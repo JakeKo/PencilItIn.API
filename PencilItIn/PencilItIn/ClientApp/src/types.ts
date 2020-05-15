@@ -50,6 +50,7 @@ export type OfficeHoursComponentStyles = {
     page: () => React.CSSProperties;
     container: () => React.CSSProperties;
     heading: () => React.CSSProperties;
+    subheading: () => React.CSSProperties;
     display: () => React.CSSProperties;
 };
 
@@ -59,7 +60,7 @@ export type BookingComponentProps = {
 };
 
 export type BookingComponentStyles = {
-    block: () => React.CSSProperties;
+    block: (officeHours: OfficeHours, booking: Booking) => React.CSSProperties;
 };
 
 export type CreateBookingFormComponentProps = {

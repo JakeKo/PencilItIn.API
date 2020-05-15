@@ -12,7 +12,7 @@ const styles: () => DividerComponentStyles = () => ({
     tag: timeOffset => ({
         position: 'absolute',
         top: `${2 * timeOffset - 8}px`,
-        left: '-40px',
+        left: '-44px',
         height: '16px',
         fontFamily: 'monospace'
     })

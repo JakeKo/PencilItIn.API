@@ -10,7 +10,8 @@ const styles: (officeHours: OfficeHours) => OfficeHoursComponentStyles = officeH
     page: () => ({
         display: 'flex',
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: '32px'
     }),
     container: () => ({
         width: '500px',
@@ -19,8 +20,14 @@ const styles: (officeHours: OfficeHours) => OfficeHoursComponentStyles = officeH
         alignItems: 'center'
     }),
     heading: () => ({
-        fontFamily: 'sans-serif',
-        fontSize: '32px'
+        fontFamily: 'monospace',
+        fontSize: '32px',
+        fontWeight: 'bold'
+    }),
+    subheading: () => ({
+        fontFamily: 'monospace',
+        fontSize: '16px',
+        textAlign: 'center'
     }),
     display: () => ({
         height: `${2 * minutesElapsed(officeHours.startTime, officeHours.endTime)}px`,
@@ -40,7 +47,7 @@ const getDividerData: (officeHours: OfficeHours) => Date[] = officeHours => {
     // Assemble a list of times at which to draw a light divider
     // Dividers are drawn at the hour
     const times: Date[] = [];
-    for (let t = officeHours.startTime; t <= officeHours.endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
+    for (let t = officeHours.startTime; t < officeHours.endTime; t = new Date(t.getFullYear(), t.getMonth(), t.getDate(), t.getHours() + 1)) {
         times.push(t);
     }
 
@@ -71,7 +78,7 @@ class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps
             <div style={style.page()}>
                 <div style={style.container()}>
                     <div style={style.heading()}>{officeHours.title}</div>
-                    <div>{officeHours.hostName} ({officeHours.location})</div>
+                    <div style={style.subheading()}>{officeHours.hostName}<br />({officeHours.location})</div>
 
                     <CreateBookingFormComponent officeHours={officeHours} createBooking={createBooking} />
 

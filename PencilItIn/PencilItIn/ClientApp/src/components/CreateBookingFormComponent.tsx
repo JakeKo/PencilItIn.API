@@ -5,7 +5,8 @@ const styles: () => CreateBookingFormComponentStyles = () => ({
     form: () => ({
         display: 'flex',
         flexDirection: 'column',
-        width: '100%'
+        width: '100%',
+        margin: '32px 0'
     }),
     fieldWrapper: () => ({
         display: 'flex',
