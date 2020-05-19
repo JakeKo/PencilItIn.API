@@ -1,57 +1,57 @@
 ﻿import * as React from 'react';
-import { CreateOfficeHoursComponentProps, CreateOfficeHoursComponentStyle } from '../types';
+import { CreateOfficeHoursComponentProps, CreateOfficeHoursComponentStyles } from '../types';
 
-const styles: () => CreateOfficeHoursComponentStyle = () => ({
-    form: () => ({
-        display: 'flex',
-        flexDirection: 'column',
-        width: '500px',
-        margin: '32px 0'
-    }),
-    fieldWrapper: () => ({
-        display: 'flex',
-        flexDirection: 'column',
-        fontFamily: 'monospace',
-        margin: '8px'
-    }),
-    dividedFields: () => ({
-        display: 'flex',
-        width: '100%'
-    }),
-    dividedFieldWrapper: () => ({
-        width: '50%'
-    }),
-    fieldLabel: () => ({
-        fontSize: '12px',
-        fontWeight: 'bold',
-    }),
-    field: () => ({
-        border: '1px solid black',
-        padding: '12px',
-        boxSizing: 'border-box',
-        fontSize: '16px'
-    }),
-    formButton: () => ({
-        margin: '8px 8px 16px 8px',
-        padding: '16px',
-        background: 'black',
-        border: 'none',
-        color: 'white',
-        fontSize: '16px',
-        fontWeight: 'bold',
-        fontFamily: 'monospace',
-        cursor: 'pointer'
-    })
-});
+class CreateOfficeHoursComponent extends React.PureComponent<CreateOfficeHoursComponentProps> {
+    private style: CreateOfficeHoursComponentStyles = {
+        form: () => ({
+            display: 'flex',
+            flexDirection: 'column',
+            width: '500px',
+            margin: '32px 0'
+        }),
+        fieldWrapper: () => ({
+            display: 'flex',
+            flexDirection: 'column',
+            fontFamily: 'monospace',
+            margin: '8px'
+        }),
+        dividedFields: () => ({
+            display: 'flex',
+            width: '100%'
+        }),
+        dividedFieldWrapper: () => ({
+            width: '50%'
+        }),
+        fieldLabel: () => ({
+            fontSize: '12px',
+            fontWeight: 'bold',
+        }),
+        field: () => ({
+            border: '1px solid black',
+            padding: '12px',
+            boxSizing: 'border-box',
+            fontSize: '16px'
+        }),
+        formButton: () => ({
+            margin: '8px 8px 16px 8px',
+            padding: '16px',
+            background: 'black',
+            border: 'none',
+            color: 'white',
+            fontSize: '16px',
+            fontWeight: 'bold',
+            fontFamily: 'monospace',
+            cursor: 'pointer'
+        })
+    };
 
-const createOfficeHoursHandler: ({ createOfficeHours }: CreateOfficeHoursComponentProps) => (event: React.FormEvent) => void = ({ createOfficeHours }) => {
-    return async event => {
+    private createOfficeHoursHandler: React.FormEventHandler = async event => {
         event.preventDefault();
 
         const form = event.target as HTMLFormElement;
         const [title, hostName, location, startDate, endDate, startTime, endTime] = form.elements as unknown as HTMLInputElement[];
 
-        const officeHoursId: string = await createOfficeHours({
+        const officeHoursId: string = await this.props.client.createOfficeHours({
             title: title.value,
             hostName: hostName.value,
             location: location.value,
@@ -61,56 +61,54 @@ const createOfficeHoursHandler: ({ createOfficeHours }: CreateOfficeHoursCompone
 
         console.log(officeHoursId);
     };
-};
 
-class CreateOfficeHoursComponent extends React.PureComponent<CreateOfficeHoursComponentProps> {
-    render: () => JSX.Element = () => {
-        const style = styles();
+    public render: () => JSX.Element = () => {
+        const { form, fieldWrapper, dividedFields, dividedFieldWrapper, fieldLabel, field, formButton } = this.style;
 
         return (
-            <form style={style.form()} onSubmit={createOfficeHoursHandler(this.props)}>
-                <div style={style.fieldWrapper()}>
-                    <label htmlFor='title' style={style.fieldLabel()}>Title</label>
-                    <input name='title' type='text' placeholder='Office Hours' style={style.field()}></input>
+            <form style={form()} onSubmit={this.createOfficeHoursHandler}>
+                <div style={fieldWrapper()}>
+                    <label htmlFor='title' style={fieldLabel()}>Title</label>
+                    <input name='title' type='text' placeholder='Office Hours' style={field()}></input>
                 </div>
 
-                <div style={style.dividedFields()}>
-                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
-                        <label htmlFor='hostName' style={style.fieldLabel()}>Host Name</label>
-                        <input name='hostName' type='text' placeholder='Jill Smith' style={style.field()}></input>
+                <div style={dividedFields()}>
+                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
+                        <label htmlFor='hostName' style={fieldLabel()}>Host Name</label>
+                        <input name='hostName' type='text' placeholder='Jill Smith' style={field()}></input>
                     </div>
 
-                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
-                        <label htmlFor='location' style={style.fieldLabel()}>Location</label>
-                        <input name='location' type='text' placeholder='Building 12, Room 264' style={style.field()}></input>
-                    </div>
-                </div>
-
-                <div style={style.dividedFields()}>
-                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
-                        <label htmlFor='startDate' style={style.fieldLabel()}>START DATE</label>
-                        <input name='startDate' type='date' style={style.field()}></input>
-                    </div>
-
-                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
-                        <label htmlFor='endDate' style={style.fieldLabel()}>END DATE</label>
-                        <input name='endDate' type='date' style={style.field()}></input>
+                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
+                        <label htmlFor='location' style={fieldLabel()}>Location</label>
+                        <input name='location' type='text' placeholder='Building 12, Room 264' style={field()}></input>
                     </div>
                 </div>
 
-                <div style={style.dividedFields()}>
-                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
-                        <label htmlFor='startTime' style={style.fieldLabel()}>START TIME</label>
-                        <input name='startTime' type='time' style={style.field()}></input>
+                <div style={dividedFields()}>
+                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
+                        <label htmlFor='startDate' style={fieldLabel()}>START DATE</label>
+                        <input name='startDate' type='date' style={field()}></input>
                     </div>
 
-                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
-                        <label htmlFor='endTime' style={style.fieldLabel()}>END TIME</label>
-                        <input name='endTime' type='time' style={style.field()}></input>
+                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
+                        <label htmlFor='endDate' style={fieldLabel()}>END DATE</label>
+                        <input name='endDate' type='date' style={field()}></input>
                     </div>
                 </div>
 
-                <button type='submit' style={style.formButton()}>SCHEDULE</button>
+                <div style={dividedFields()}>
+                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
+                        <label htmlFor='startTime' style={fieldLabel()}>START TIME</label>
+                        <input name='startTime' type='time' style={field()}></input>
+                    </div>
+
+                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
+                        <label htmlFor='endTime' style={fieldLabel()}>END TIME</label>
+                        <input name='endTime' type='time' style={field()}></input>
+                    </div>
+                </div>
+
+                <button type='submit' style={formButton()}>SCHEDULE</button>
             </form>
         );
     }

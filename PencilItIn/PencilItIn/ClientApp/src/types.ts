@@ -67,7 +67,7 @@ export type OfficeHoursComponentStyles = {
     container: () => React.CSSProperties;
     heading: () => React.CSSProperties;
     subheading: () => React.CSSProperties;
-    display: () => React.CSSProperties;
+    display: (officeHours: OfficeHours) => React.CSSProperties;
 };
 
 export type BookingComponentProps = {
@@ -107,15 +107,15 @@ export type DividerComponentProps = {
 };
 
 export type DividerComponentStyles = {
-    line: (timeOffset: number) => React.CSSProperties;
-    tag: (timeOffset: number) => React.CSSProperties;
+    line: (officeHoursStartTime: Date, time: Date) => React.CSSProperties;
+    tag: (officeHoursStartTime: Date, time: Date) => React.CSSProperties;
 };
 
 export type CreateOfficeHoursComponentProps = {
-    createOfficeHours: (officeHours: OfficeHoursRequestBody) => Promise<string>;
+    client: Client;
 };
 
-export type CreateOfficeHoursComponentStyle = {
+export type CreateOfficeHoursComponentStyles = {
     form: () => React.CSSProperties;
     fieldWrapper: () => React.CSSProperties;
     dividedFields: () => React.CSSProperties;
