@@ -44,14 +44,14 @@ const styles: () => CreateBookingComponentStyles = () => ({
     })
 });
 
-const createBookingHandler: ({ officeHours, createBooking }: CreateBookingComponentProps) => (event: React.FormEvent) => void = ({ officeHours, createBooking }) => {
+const createBookingHandler: ({ officeHours, client }: CreateBookingComponentProps) => (event: React.FormEvent) => void = ({ officeHours, client }) => {
     return event => {
         event.preventDefault();
 
         const form = event.target as HTMLFormElement;
         const [name, startDate, endDate, startTime, endTime] = form.elements as unknown as HTMLInputElement[];
 
-        createBooking(officeHours.id, {
+        client.createBooking(officeHours.id, {
             name: name.value,
             startTime: new Date(`${startDate.value}T${startTime.value}`),
             endTime: new Date(`${endDate.value}T${endTime.value}`)

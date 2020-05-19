@@ -1,9 +1,8 @@
 ﻿import * as React from 'react';
-import { createBooking, requestOfficeHours } from '../client';
 import { OfficeHours, OfficeHoursComponentProps, OfficeHoursComponentStyles } from '../types';
 import { minutesElapsed } from '../utilities';
 import BookingComponent from './BookingComponent';
-import CreateBookingFormComponent from './CreateBookingComponent';
+import CreateBookingComponent from './CreateBookingComponent';
 import DividerComponent from './DividerComponent';
 
 const styles: (officeHours: OfficeHours) => OfficeHoursComponentStyles = officeHours => ({
@@ -62,7 +61,7 @@ class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps
     };
 
     public componentDidMount: () => void = async () => {
-        this.setState({ officeHours: await requestOfficeHours(this.props.officeHoursId) });
+        this.setState({ officeHours: await this.props.client.requestOfficeHours(this.props.officeHoursId) });
     }
 
     public render: () => JSX.Element = () => {
@@ -80,7 +79,7 @@ class OfficeHoursComponent extends React.PureComponent<OfficeHoursComponentProps
                     <div style={style.heading()}>{officeHours.title}</div>
                     <div style={style.subheading()}>{officeHours.hostName}<br />({officeHours.location})</div>
 
-                    <CreateBookingFormComponent officeHours={officeHours} createBooking={createBooking} />
+                    <CreateBookingComponent officeHours={officeHours} client={this.props.client} />
 
                     <div style={style.display()}>
                         {dividers.map(time => <DividerComponent key={Math.random()} officeHoursStartTime={officeHours.startTime} time={time} />)}

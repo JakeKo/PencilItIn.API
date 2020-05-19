@@ -1,4 +1,11 @@
-﻿export type OfficeHours = {
+﻿export type Client = {
+    requestAllOfficeHours: () => Promise<OfficeHours[]>;
+    requestOfficeHours: (officeHoursId: string) => Promise<OfficeHours>;
+    createOfficeHours: (officeHours: OfficeHoursRequestBody) => Promise<string>;
+    createBooking: (officeHoursId: string, booking: BookingRequestBody) => Promise<string>;
+};
+
+export type OfficeHours = {
     id: string;
     startTime: Date;
     endTime: Date;
@@ -52,6 +59,7 @@ export type BookingRequestBody = {
 
 export type OfficeHoursComponentProps = {
     officeHoursId: string;
+    client: Client;
 };
 
 export type OfficeHoursComponentStyles = {
@@ -73,7 +81,7 @@ export type BookingComponentStyles = {
 
 export type CreateBookingComponentProps = {
     officeHours: OfficeHours;
-    createBooking: (officeHoursId: string, booking: BookingRequestBody) => void;
+    client: Client;
 };
 
 export type CreateBookingComponentStyles = {
@@ -88,6 +96,7 @@ export type CreateBookingComponentStyles = {
 
 export type LandingComponentProps = {
     officeHours: OfficeHours[];
+    client: Client;
 };
 
 export type LandingComponentStyles = {};
