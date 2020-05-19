@@ -20,6 +20,14 @@ export type OfficeHoursResponseBody = {
     bookings: BookingResponseBody[];
 };
 
+export type OfficeHoursRequestBody = {
+    title: string;
+    hostName: string;
+    location: string;
+    startTime: Date;
+    endTime: Date;
+};
+
 export type Booking = {
     id: string;
     startTime: Date;
@@ -95,7 +103,7 @@ export type DividerComponentStyles = {
 };
 
 export type CreateOfficeHoursFormComponentProps = {
-
+    createOfficeHours: (officeHours: OfficeHoursRequestBody) => Promise<string>;
 };
 
 export type CreateOfficeHoursFormComponentStyle = {

@@ -44,12 +44,31 @@ const styles: () => CreateOfficeHoursFormComponentStyle = () => ({
     })
 });
 
-class CreateOfficeHoursFormComponent extends React.Component<CreateOfficeHoursFormComponentProps> {
+const createOfficeHoursHandler: ({ createOfficeHours }: CreateOfficeHoursFormComponentProps) => (event: React.FormEvent) => void = ({ createOfficeHours }) => {
+    return async event => {
+        event.preventDefault();
+
+        const form = event.target as HTMLFormElement;
+        const [title, hostName, location, startDate, endDate, startTime, endTime] = form.elements as unknown as HTMLInputElement[];
+
+        const officeHoursId: string = await createOfficeHours({
+            title: title.value,
+            hostName: hostName.value,
+            location: location.value,
+            startTime: new Date(`${startDate.value}T${startTime.value}`),
+            endTime: new Date(`${endDate.value}T${endTime.value}`)
+        });
+
+        console.log(officeHoursId);
+    };
+};
+
+class CreateOfficeHoursFormComponent extends React.PureComponent<CreateOfficeHoursFormComponentProps> {
     render: () => JSX.Element = () => {
         const style = styles();
 
         return (
-            <form style={style.form()}>
+            <form style={style.form()} onSubmit={createOfficeHoursHandler(this.props)}>
                 <div style={style.fieldWrapper()}>
                     <label htmlFor='title' style={style.fieldLabel()}>Title</label>
                     <input name='title' type='text' placeholder='Office Hours' style={style.field()}></input>
