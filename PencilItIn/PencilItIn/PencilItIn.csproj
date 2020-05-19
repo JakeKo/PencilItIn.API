@@ -24,6 +24,7 @@
     <None Remove="ClientApp\src\client.ts" />
     <None Remove="ClientApp\src\components\BookingComponent.tsx" />
     <None Remove="ClientApp\src\components\CreateBookingFormComponent.tsx" />
+    <None Remove="ClientApp\src\components\CreateOfficeHoursFormComponent.tsx" />
     <None Remove="ClientApp\src\components\DividerComponent.tsx" />
     <None Remove="ClientApp\src\components\LandingComponent.tsx" />
     <None Remove="ClientApp\src\components\OfficeHoursComponent.tsx" />
@@ -37,6 +38,7 @@
     <TypeScriptCompile Include="ClientApp\src\client.ts" />
     <TypeScriptCompile Include="ClientApp\src\components\BookingComponent.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\CreateBookingFormComponent.tsx" />
+    <TypeScriptCompile Include="ClientApp\src\components\CreateOfficeHoursFormComponent.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\DividerComponent.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\LandingComponent.tsx" />
     <TypeScriptCompile Include="ClientApp\src\components\OfficeHoursComponent.tsx" />

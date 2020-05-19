@@ -93,3 +93,17 @@ export type DividerComponentStyles = {
     line: (timeOffset: number) => React.CSSProperties;
     tag: (timeOffset: number) => React.CSSProperties;
 };
+
+export type CreateOfficeHoursFormComponentProps = {
+
+};
+
+export type CreateOfficeHoursFormComponentStyle = {
+    form: () => React.CSSProperties;
+    fieldWrapper: () => React.CSSProperties;
+    dividedFields: () => React.CSSProperties;
+    dividedFieldWrapper: () => React.CSSProperties;
+    fieldLabel: () => React.CSSProperties;
+    field: () => React.CSSProperties;
+    formButton: () => React.CSSProperties;
+};
