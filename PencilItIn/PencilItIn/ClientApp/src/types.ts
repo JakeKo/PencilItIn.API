@@ -71,12 +71,12 @@ export type BookingComponentStyles = {
     block: (officeHours: OfficeHours, booking: Booking) => React.CSSProperties;
 };
 
-export type CreateBookingFormComponentProps = {
+export type CreateBookingComponentProps = {
     officeHours: OfficeHours;
     createBooking: (officeHoursId: string, booking: BookingRequestBody) => void;
 };
 
-export type CreateBookingFormComponentStyles = {
+export type CreateBookingComponentStyles = {
     form: () => React.CSSProperties;
     fieldWrapper: () => React.CSSProperties;
     dividedFields: () => React.CSSProperties;
@@ -102,11 +102,11 @@ export type DividerComponentStyles = {
     tag: (timeOffset: number) => React.CSSProperties;
 };
 
-export type CreateOfficeHoursFormComponentProps = {
+export type CreateOfficeHoursComponentProps = {
     createOfficeHours: (officeHours: OfficeHoursRequestBody) => Promise<string>;
 };
 
-export type CreateOfficeHoursFormComponentStyle = {
+export type CreateOfficeHoursComponentStyle = {
     form: () => React.CSSProperties;
     fieldWrapper: () => React.CSSProperties;
     dividedFields: () => React.CSSProperties;

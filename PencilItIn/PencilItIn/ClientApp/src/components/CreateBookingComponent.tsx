@@ -1,11 +1,11 @@
 ﻿import * as React from 'react';
-import { CreateOfficeHoursFormComponentProps, CreateOfficeHoursFormComponentStyle } from '../types';
+import { CreateBookingComponentProps, CreateBookingComponentStyles } from '../types';
 
-const styles: () => CreateOfficeHoursFormComponentStyle = () => ({
+const styles: () => CreateBookingComponentStyles = () => ({
     form: () => ({
         display: 'flex',
         flexDirection: 'column',
-        width: '500px',
+        width: '100%',
         margin: '32px 0'
     }),
     fieldWrapper: () => ({
@@ -44,57 +44,43 @@ const styles: () => CreateOfficeHoursFormComponentStyle = () => ({
     })
 });
 
-const createOfficeHoursHandler: ({ createOfficeHours }: CreateOfficeHoursFormComponentProps) => (event: React.FormEvent) => void = ({ createOfficeHours }) => {
-    return async event => {
+const createBookingHandler: ({ officeHours, createBooking }: CreateBookingComponentProps) => (event: React.FormEvent) => void = ({ officeHours, createBooking }) => {
+    return event => {
         event.preventDefault();
 
         const form = event.target as HTMLFormElement;
-        const [title, hostName, location, startDate, endDate, startTime, endTime] = form.elements as unknown as HTMLInputElement[];
+        const [name, startDate, endDate, startTime, endTime] = form.elements as unknown as HTMLInputElement[];
 
-        const officeHoursId: string = await createOfficeHours({
-            title: title.value,
-            hostName: hostName.value,
-            location: location.value,
+        createBooking(officeHours.id, {
+            name: name.value,
             startTime: new Date(`${startDate.value}T${startTime.value}`),
             endTime: new Date(`${endDate.value}T${endTime.value}`)
         });
-
-        console.log(officeHoursId);
     };
 };
 
-class CreateOfficeHoursFormComponent extends React.PureComponent<CreateOfficeHoursFormComponentProps> {
-    render: () => JSX.Element = () => {
+class CreateBookingComponent extends React.PureComponent<CreateBookingComponentProps> {
+    public render: () => JSX.Element = () => {
         const style = styles();
+        const startDate = this.props.officeHours.startTime.toISOString().split('T')[0];
+        const endDate = this.props.officeHours.endTime.toISOString().split('T')[0];
 
         return (
-            <form style={style.form()} onSubmit={createOfficeHoursHandler(this.props)}>
+            <form onSubmit={createBookingHandler(this.props)} style={style.form()}>
                 <div style={style.fieldWrapper()}>
-                    <label htmlFor='title' style={style.fieldLabel()}>Title</label>
-                    <input name='title' type='text' placeholder='Office Hours' style={style.field()}></input>
-                </div>
-
-                <div style={style.dividedFields()}>
-                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
-                        <label htmlFor='hostName' style={style.fieldLabel()}>Host Name</label>
-                        <input name='hostName' type='text' placeholder='Jill Smith' style={style.field()}></input>
-                    </div>
-
-                    <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
-                        <label htmlFor='location' style={style.fieldLabel()}>Location</label>
-                        <input name='location' type='text' placeholder='Building 12, Room 264' style={style.field()}></input>
-                    </div>
+                    <label htmlFor='name' style={style.fieldLabel()}>NAME</label>
+                    <input name='name' type='text' placeholder='Name' style={style.field()}></input>
                 </div>
 
                 <div style={style.dividedFields()}>
                     <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
                         <label htmlFor='startDate' style={style.fieldLabel()}>START DATE</label>
-                        <input name='startDate' type='date' style={style.field()}></input>
+                        <input name='startDate' type='date' style={style.field()} defaultValue={startDate}></input>
                     </div>
 
                     <div style={{ ...style.fieldWrapper(), ...style.dividedFieldWrapper() }}>
                         <label htmlFor='endDate' style={style.fieldLabel()}>END DATE</label>
-                        <input name='endDate' type='date' style={style.field()}></input>
+                        <input name='endDate' type='date' style={style.field()} defaultValue={endDate}></input>
                     </div>
                 </div>
 
@@ -110,10 +96,10 @@ class CreateOfficeHoursFormComponent extends React.PureComponent<CreateOfficeHou
                     </div>
                 </div>
 
-                <button type='submit' style={style.formButton()}>SCHEDULE</button>
+                <button type='submit' style={style.formButton()}>SUBMIT</button>
             </form>
         );
     }
-}
+};
 
-export default CreateOfficeHoursFormComponent;
+export default CreateBookingComponent;

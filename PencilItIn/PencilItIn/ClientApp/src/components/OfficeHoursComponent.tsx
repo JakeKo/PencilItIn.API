@@ -3,7 +3,7 @@ import { createBooking, requestOfficeHours } from '../client';
 import { OfficeHours, OfficeHoursComponentProps, OfficeHoursComponentStyles } from '../types';
 import { minutesElapsed } from '../utilities';
 import BookingComponent from './BookingComponent';
-import CreateBookingFormComponent from './CreateBookingFormComponent';
+import CreateBookingFormComponent from './CreateBookingComponent';
 import DividerComponent from './DividerComponent';
 
 const styles: (officeHours: OfficeHours) => OfficeHoursComponentStyles = officeHours => ({
