@@ -1,7 +1,13 @@
 ﻿import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import { CreateOfficeHoursComponentProps, CreateOfficeHoursComponentStyles } from '../types';
 
 class CreateOfficeHoursComponent extends React.PureComponent<CreateOfficeHoursComponentProps> {
+    readonly state: { officeHoursCreated: boolean; officeHoursId: string | undefined } = {
+        officeHoursCreated: false,
+        officeHoursId: undefined
+    };
+
     private style: CreateOfficeHoursComponentStyles = {
         form: () => ({
             display: 'flex',
@@ -59,10 +65,18 @@ class CreateOfficeHoursComponent extends React.PureComponent<CreateOfficeHoursCo
             endTime: new Date(`${endDate.value}T${endTime.value}`)
         });
 
-        console.log(officeHoursId);
+        this.setState({
+            officeHoursCreated: true,
+            officeHoursId
+        });
     };
 
     public render: () => JSX.Element = () => {
+        // If office hours were just created, redirect to the create office hours
+        if (this.state.officeHoursCreated) {
+            return (<Redirect to={`/office-hours/${this.state.officeHoursId}`} />);
+        }
+
         const { form, fieldWrapper, dividedFields, dividedFieldWrapper, fieldLabel, field, formButton } = this.style;
 
         return (
