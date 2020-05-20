@@ -1,0 +1,12 @@
+﻿.block {
+    position: absolute;
+    width: 95%;
+    background-color: white;
+    border: 2px solid black;
+    display: flex;
+    font-family: monospace;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+}

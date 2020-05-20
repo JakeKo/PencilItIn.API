@@ -1,50 +1,8 @@
 ﻿import * as React from 'react';
-import { CreateBookingComponentProps, CreateBookingComponentStyles } from '../types';
+import '../style/CreateBookingComponent.css';
+import { CreateBookingComponentProps } from '../types';
 
 class CreateBookingComponent extends React.PureComponent<CreateBookingComponentProps> {
-    private style: CreateBookingComponentStyles = {
-        form: () => ({
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            margin: '32px 0'
-        }),
-        fieldWrapper: () => ({
-            display: 'flex',
-            flexDirection: 'column',
-            fontFamily: 'monospace',
-            margin: '8px'
-        }),
-        dividedFields: () => ({
-            display: 'flex',
-            width: '100%'
-        }),
-        dividedFieldWrapper: () => ({
-            width: '50%'
-        }),
-        fieldLabel: () => ({
-            fontSize: '12px',
-            fontWeight: 'bold',
-        }),
-        field: () => ({
-            border: '1px solid black',
-            padding: '12px',
-            boxSizing: 'border-box',
-            fontSize: '16px'
-        }),
-        formButton: () => ({
-            margin: '8px 8px 16px 8px',
-            padding: '16px',
-            background: 'black',
-            border: 'none',
-            color: 'white',
-            fontSize: '16px',
-            fontWeight: 'bold',
-            fontFamily: 'monospace',
-            cursor: 'pointer'
-        })
-    };
-
     private createBookingHandler: React.FormEventHandler = event => {
         event.preventDefault();
 
@@ -59,42 +17,41 @@ class CreateBookingComponent extends React.PureComponent<CreateBookingComponentP
     };
 
     public render: () => JSX.Element = () => {
-        const { form, fieldWrapper, dividedFields, dividedFieldWrapper, fieldLabel, field, formButton } = this.style;
         const startDate = this.props.officeHours.startTime.toISOString().split('T')[0];
         const endDate = this.props.officeHours.endTime.toISOString().split('T')[0];
 
         return (
-            <form onSubmit={this.createBookingHandler} style={form()}>
-                <div style={fieldWrapper()}>
-                    <label htmlFor='name' style={fieldLabel()}>NAME</label>
-                    <input name='name' type='text' placeholder='Name' style={field()}></input>
+            <form onSubmit={this.createBookingHandler} className='form'>
+                <div className='field-wrapper'>
+                    <label htmlFor='name' className='field-label'>NAME</label>
+                    <input name='name' type='text' placeholder='Name' className='field'></input>
                 </div>
 
-                <div style={dividedFields()}>
-                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
-                        <label htmlFor='startDate' style={fieldLabel()}>START DATE</label>
-                        <input name='startDate' type='date' style={field()} defaultValue={startDate}></input>
+                <div className='divided-fields'>
+                    <div className='field-wrapper divided-field-wrapper'>
+                        <label htmlFor='startDate' className='field-label'>START DATE</label>
+                        <input name='startDate' type='date' className='field' defaultValue={startDate}></input>
                     </div>
 
-                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
-                        <label htmlFor='endDate' style={fieldLabel()}>END DATE</label>
-                        <input name='endDate' type='date' style={field()} defaultValue={endDate}></input>
-                    </div>
-                </div>
-
-                <div style={dividedFields()}>
-                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
-                        <label htmlFor='startTime' style={fieldLabel()}>START TIME</label>
-                        <input name='startTime' type='time' style={field()}></input>
-                    </div>
-
-                    <div style={{ ...fieldWrapper(), ...dividedFieldWrapper() }}>
-                        <label htmlFor='endTime' style={fieldLabel()}>END TIME</label>
-                        <input name='endTime' type='time' style={field()}></input>
+                    <div className='field-wrapper divided-field-wrapper'>
+                        <label htmlFor='endDate' className='field-label'>END DATE</label>
+                        <input name='endDate' type='date' className='field' defaultValue={endDate}></input>
                     </div>
                 </div>
 
-                <button type='submit' style={formButton()}>SUBMIT</button>
+                <div className='divided-fields'>
+                    <div className='field-wrapper divided-field-wrapper'>
+                        <label htmlFor='startTime' className='field-label'>START TIME</label>
+                        <input name='startTime' type='time' className='field'></input>
+                    </div>
+
+                    <div className='field-wrapper divided-field-wrapper'>
+                        <label htmlFor='endTime' className='field-label'>END TIME</label>
+                        <input name='endTime' type='time' className='field'></input>
+                    </div>
+                </div>
+
+                <button type='submit' className='form-button'>SUBMIT</button>
             </form>
         );
     }

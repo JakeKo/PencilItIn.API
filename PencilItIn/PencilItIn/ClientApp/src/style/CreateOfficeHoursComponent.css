@@ -1,0 +1,45 @@
+﻿.form {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+}
+
+.field-wrapper {
+    display: flex;
+    flex-direction: column;
+    font-family: monospace;
+    margin: 8px;
+}
+
+.divided-fields {
+    display: flex;
+    width: 100%;
+}
+
+.divided-field-wrapper {
+    width: 50%;
+}
+
+.field-label {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.field {
+    border: 1px solid black;
+    padding: 12px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form-button {
+    margin: 8px 8px 16px 8px;
+    padding: 16px;
+    background: black;
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: monospace;
+    cursor: pointer;
+}

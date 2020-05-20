@@ -62,21 +62,9 @@ export type OfficeHoursComponentProps = {
     client: Client;
 };
 
-export type OfficeHoursComponentStyles = {
-    page: () => React.CSSProperties;
-    container: () => React.CSSProperties;
-    heading: () => React.CSSProperties;
-    subheading: () => React.CSSProperties;
-    display: (officeHours: OfficeHours) => React.CSSProperties;
-};
-
 export type BookingComponentProps = {
     booking: Booking;
     officeHours: OfficeHours;
-};
-
-export type BookingComponentStyles = {
-    block: (officeHours: OfficeHours, booking: Booking) => React.CSSProperties;
 };
 
 export type CreateBookingComponentProps = {
@@ -84,22 +72,8 @@ export type CreateBookingComponentProps = {
     client: Client;
 };
 
-export type CreateBookingComponentStyles = {
-    form: () => React.CSSProperties;
-    fieldWrapper: () => React.CSSProperties;
-    dividedFields: () => React.CSSProperties;
-    dividedFieldWrapper: () => React.CSSProperties;
-    fieldLabel: () => React.CSSProperties;
-    field: () => React.CSSProperties;
-    formButton: () => React.CSSProperties;
-};
-
 export type LandingComponentProps = {
     client: Client;
-};
-
-export type LandingComponentStyles = {
-    page: () => React.CSSProperties;
 };
 
 export type DividerComponentProps = {
@@ -107,21 +81,6 @@ export type DividerComponentProps = {
     time: Date;
 };
 
-export type DividerComponentStyles = {
-    line: (officeHoursStartTime: Date, time: Date) => React.CSSProperties;
-    tag: (officeHoursStartTime: Date, time: Date) => React.CSSProperties;
-};
-
 export type CreateOfficeHoursComponentProps = {
     client: Client;
-};
-
-export type CreateOfficeHoursComponentStyles = {
-    form: () => React.CSSProperties;
-    fieldWrapper: () => React.CSSProperties;
-    dividedFields: () => React.CSSProperties;
-    dividedFieldWrapper: () => React.CSSProperties;
-    fieldLabel: () => React.CSSProperties;
-    field: () => React.CSSProperties;
-    formButton: () => React.CSSProperties;
 };

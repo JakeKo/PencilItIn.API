@@ -3,6 +3,7 @@ import { Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom
 import Client from './client';
 import LandingComponent from './components/LandingComponent';
 import OfficeHoursComponent from './components/OfficeHoursComponent';
+import './style/App.css';
 
 class App extends React.PureComponent<RouteComponentProps> {
     public render: () => JSX.Element = () => {

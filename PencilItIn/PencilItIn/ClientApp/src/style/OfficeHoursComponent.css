@@ -1,0 +1,37 @@
+﻿.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 32px;
+}
+
+.container {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.heading {
+    font-family: monospace;
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.subheading {
+    font-family: monospace;
+    font-size: 16px;
+    text-align: center;
+}
+
+.display {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border: 1px solid grey;
+    box-sizing: border-box;
+    border-radius: 3px;
+}

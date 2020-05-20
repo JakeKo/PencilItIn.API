@@ -1,0 +1,12 @@
+﻿.line {
+    border-top: 1px dashed grey;
+    width: 100%;
+    position: absolute;
+}
+
+.tag {
+    position: absolute;
+    left: -44px;
+    height: 16px;
+    font-family: monospace;
+}
