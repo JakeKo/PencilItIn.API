@@ -12,8 +12,7 @@ class CreateOfficeHoursComponent extends React.PureComponent<CreateOfficeHoursCo
         form: () => ({
             display: 'flex',
             flexDirection: 'column',
-            width: '500px',
-            margin: '32px 0'
+            width: '500px'
         }),
         fieldWrapper: () => ({
             display: 'flex',

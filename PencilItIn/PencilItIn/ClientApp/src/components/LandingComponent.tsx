@@ -1,16 +1,22 @@
 ﻿import * as React from 'react';
-import { Link } from 'react-router-dom';
-import { LandingComponentProps } from '../types';
+import { LandingComponentProps, LandingComponentStyles } from '../types';
 import CreateOfficeHoursComponent from './CreateOfficeHoursComponent';
 
 class LandingComponent extends React.PureComponent<LandingComponentProps> {
+    private style: LandingComponentStyles = {
+        page: () => ({
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+        })
+    };
+
     public render: () => JSX.Element = () => {
-        const { officeHours, client } = this.props;
+        const { page } = this.style;
 
         return (
-            <div>
-                {officeHours.map(({ id, hostName }) => <Link key={Math.random()} to={`/office-hours/${id}`}>{hostName}</Link>)}
-                <CreateOfficeHoursComponent client={client} />
+            <div style={page()}>
+                <CreateOfficeHoursComponent client={this.props.client} />
             </div>
         );
     };

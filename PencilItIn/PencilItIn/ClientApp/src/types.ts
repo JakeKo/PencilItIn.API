@@ -95,11 +95,12 @@ export type CreateBookingComponentStyles = {
 };
 
 export type LandingComponentProps = {
-    officeHours: OfficeHours[];
     client: Client;
 };
 
-export type LandingComponentStyles = {};
+export type LandingComponentStyles = {
+    page: () => React.CSSProperties;
+};
 
 export type DividerComponentProps = {
     officeHoursStartTime: Date;
